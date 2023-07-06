@@ -1,0 +1,16 @@
+{
+    "name": "carlosgabriel/portal_glpi",
+    "description": "Uma pequena aplicação que servirá como portal de acesso às funcionalidades do sistema GLPI",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app",
+            "Cosanpa\\PortalGlpi\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Carlos Gabriel da Silva Pereira"
+        }
+    ],
+    "require": {}
+}
