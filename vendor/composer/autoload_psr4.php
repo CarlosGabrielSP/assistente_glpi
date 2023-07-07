@@ -6,6 +6,7 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Cosanpa\\PortalGlpi\\Infrastructe' => array($baseDir . '/infra'),
     'Cosanpa\\PortalGlpi\\' => array($baseDir . '/src'),
     'App\\' => array($baseDir . '/app'),
 );

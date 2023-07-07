@@ -28,7 +28,7 @@ abstract class Repository
         return $this->tabela;
     }
     
-    public function all(string $ordem = 'ASC')
+    public function findAll(string $ordem = 'ASC')
     {
         $qry = "SELECT * FROM $this->tabela ORDER BY id_{$this->tabela} $ordem";
         $stm = $this->PDOconexao->prepare($qry);
@@ -36,7 +36,7 @@ abstract class Repository
         return $stm->fetchAll(PDO::FETCH_CLASS, $this->tabela);
     }
 
-    public function byId(int $id)
+    public function find(int $id)
     {
         $qry = 'SELECT * FROM ' . $this->tabela . " WHERE id_{$this->tabela} = :id";
         $stm = $this->PDOconexao->prepare($qry);

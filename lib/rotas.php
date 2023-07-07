@@ -1,5 +1,12 @@
 <?php
 // APP #################################################################################################
+$rotas['/login'] = [
+    'GET' => [
+        'controller' => App\controllers\AppController::class,
+        'action' => 'login'
+    ]
+];
+
 $rotas['/'] = [
     'GET' => [
         'controller' => App\controllers\AppController::class,
@@ -15,10 +22,10 @@ $rotas['/erro404'] = [
 ];
 
 // CAHAMADOS ############################################################################################
-$rotas['/chamado1'] = [
-    'POST' => [
+$rotas['/chamados'] = [
+    'GET' => [
         'controller' => App\controllers\ChamadoController::class,
-        'action' => 'chamado1'
+        'action' => 'listaChamados'
     ]
 ];
 

@@ -50,7 +50,7 @@ class Router
             $action = $infoRota['action'];
             $controller->$action(3);
         } else {
-            header('Location: ' . '/erro404');
+            // header('Location: ' . '/erro404');
             exit();
         }
     }
