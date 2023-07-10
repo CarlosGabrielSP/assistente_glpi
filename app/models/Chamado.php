@@ -2,9 +2,7 @@
 
 namespace App\models;
 
-use Cosanpa\PortalGlpi\Conexao;
-use Cosanpa\PortalGlpi\Infrastructe\ChamadoRepository;
-use PDO;
+use Cosanpa\PortalGlpi\Infra\ChamadoRepository;
 
 class Chamado
 {

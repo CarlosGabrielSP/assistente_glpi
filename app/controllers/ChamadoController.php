@@ -10,7 +10,8 @@ class ChamadoController extends Controller
     public function listaChamados()
     {
         $chamado = new Chamado();
-        $chamado->buscaTodos();
+        $lista = $chamado->buscaTodos();
+        $this->view('tickets/lista', ['lista'=>$lista]);
     }
 
     // public function chamado1()
@@ -19,7 +20,7 @@ class ChamadoController extends Controller
     //     $descricao = $_POST['descricao'];
     //     $repositoryChamado = new RepositoryChamado();
     //     if($repositoryChamado->criarChamado($titulo, $descricao)){
-            
     //     }
     // }
+
 }

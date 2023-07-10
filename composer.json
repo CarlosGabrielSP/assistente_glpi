@@ -5,7 +5,7 @@
         "psr-4": {
             "App\\": "app",
             "Cosanpa\\PortalGlpi\\": "src",
-            "Cosanpa\\PortalGlpi\\Infrastructe": "infra"
+            "Cosanpa\\PortalGlpi\\Infra\\": "infra"
         }
     },
     "authors": [

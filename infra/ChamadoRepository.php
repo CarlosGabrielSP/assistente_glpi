@@ -1,6 +1,6 @@
 <?php
 
-namespace Cosanpa\PortalGlpi\Infrastructe;
+namespace Cosanpa\PortalGlpi\Infra;
 
 use PDO;
 use Cosanpa\PortalGlpi\Conexao;
@@ -14,11 +14,10 @@ class ChamadoRepository
         $this->PDOconexao = Conexao::getConexao();
     }
 
-    public function findAll(string $ordem = 'ASC')
+    public function findAll(string $ordem = 'DESC')
     {
-        $PDOconexao = Conexao::getConexao();
-        $qry = "SELECT * FROM glpi_tickets ORDER BY $ordem";
-        $stm = $PDOconexao->prepare($qry);
+        $qry = "SELECT * FROM glpi_tickets ORDER BY 'id' $ordem";
+        $stm = $this->PDOconexao->prepare($qry);
         $stm->execute();
         return $stm->fetchAll(PDO::FETCH_ASSOC);
     }

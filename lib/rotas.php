@@ -1,11 +1,11 @@
 <?php
 // APP #################################################################################################
-$rotas['/login'] = [
-    'GET' => [
-        'controller' => App\controllers\AppController::class,
-        'action' => 'login'
-    ]
-];
+// $rotas['/login'] = [
+//     'GET' => [
+//         'controller' => App\controllers\AppController::class,
+//         'action' => 'login'
+//     ]
+// ];
 
 $rotas['/'] = [
     'GET' => [
