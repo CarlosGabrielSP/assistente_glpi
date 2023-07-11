@@ -5,7 +5,7 @@ namespace Cosanpa\PortalGlpi\Infra;
 use PDO;
 use Cosanpa\PortalGlpi\Conexao;
 
-class ChamadoRepository
+class TicketRepository
 {
     private $PDOconexao;
 
