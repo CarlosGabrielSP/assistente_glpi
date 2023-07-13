@@ -2,7 +2,7 @@
 
 namespace App\models;
 
-use Cosanpa\PortalGlpi\Infra\TicketRepository;
+use Cosanpa\PortalGlpi\Infra\TicketsRepository;
 
 class Ticket
 {
@@ -10,12 +10,17 @@ class Ticket
 
     function __construct()
     {
-        $this->ticketRepository = new TicketRepository();
+        $this->ticketRepository = new TicketsRepository();
     }
 
     public function buscaTodos()
     {
         return $this->ticketRepository->findAll();
+    }
+
+    public function criarNovoTicket($cod, $userName, $info, $title, $content)
+    {
+
     }
 
 }

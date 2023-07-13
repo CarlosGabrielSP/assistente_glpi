@@ -13,8 +13,8 @@ abstract class Repository
     function __construct()
     {
         $ref = new ReflectionClass($this);
-        $classe = $ref->getShortName();
-        $this->tabela = strtolower($classe);
+        $nomeClasse = $ref->getShortName();
+        $this->tabela = 'glpi_'.strtolower(str_replace('Repository','',$nomeClasse)); //O nome do Repository-filho deve iniciar com o nome da respectiva tabela no Banco
         $this->PDOconexao = Conexao::getConexao();
     }
 
@@ -30,27 +30,27 @@ abstract class Repository
     
     public function findAll(string $ordem = 'ASC')
     {
-        $qry = "SELECT * FROM $this->tabela ORDER BY id_{$this->tabela} $ordem";
+        $qry = "SELECT * FROM $this->tabela ORDER BY id $ordem";
         $stm = $this->PDOconexao->prepare($qry);
         $stm->execute();
-        return $stm->fetchAll(PDO::FETCH_CLASS, $this->tabela);
+        return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function find(int $id)
     {
-        $qry = 'SELECT * FROM ' . $this->tabela . " WHERE id_{$this->tabela} = :id";
+        $qry = 'SELECT * FROM ' . $this->tabela . " WHERE id = :id";
         $stm = $this->PDOconexao->prepare($qry);
         $stm->bindParam(':id', $id);
-        $stm->setFetchMode(PDO::FETCH_CLASS, $this->tabela);
+        $stm->setFetchMode(PDO::FETCH_ASSOC);
         $stm->execute();
         return $stm->fetch();
     }
 
     public function last()
     {
-        $qry = 'SELECT * FROM ' . $this->tabela . " ORDER BY id_{$this->tabela} DESC LIMIT 1";
+        $qry = 'SELECT * FROM ' . $this->tabela . " ORDER BY id DESC LIMIT 1";
         $stm = $this->PDOconexao->prepare($qry);
-        $stm->setFetchMode(PDO::FETCH_CLASS, $this->tabela);
+        $stm->setFetchMode(PDO::FETCH_ASSOC);
         $stm->execute();
         return $stm->fetch();
     }
@@ -64,9 +64,11 @@ abstract class Repository
         return $stm->execute();
     }
 
+
+    /*
     public function delete($id)
     {
-        $qry ="DELETE FROM " . $this->tabela . " WHERE id_{$this->tabela} = :id";
+        $qry ="DELETE FROM " . $this->tabela . " WHERE id = :id";
         $stm = $this->PDOconexao->prepare($qry);
         $stm->bindParam(':id', $id);
         return $stm->execute();
@@ -79,10 +81,11 @@ abstract class Repository
         }
         $qry = 'UPDATE ' . $this->tabela . ' SET ';
         $qry .= implode(' , ', $array_aux);
-        $qry .= " WHERE id_{$this->tabela} = :id";
+        $qry .= " WHERE id = :id";
         $stm = $this->PDOconexao->prepare($qry);
         $stm->bindParam(':id', $id);
         return $stm->execute();
     }
+    */
 
 }
