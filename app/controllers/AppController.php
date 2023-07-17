@@ -6,8 +6,8 @@ use Cosanpa\PortalGlpi\Controller;
 
 class AppController extends Controller
 {
-    public function login(){
-        $this->view("login");
+    public function teste(){
+        $this->view("teste2");
     }
 
     public function index(){

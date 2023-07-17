@@ -6,5 +6,5 @@ use Cosanpa\PortalGlpi\Repository;
 
 class TicketsRepository extends Repository
 {
-    
+
 }

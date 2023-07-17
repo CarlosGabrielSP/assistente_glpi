@@ -1,11 +1,11 @@
 <?php
 // APP #################################################################################################
-// $rotas['/login'] = [
-//     'GET' => [
-//         'controller' => App\controllers\AppController::class,
-//         'action' => 'login'
-//     ]
-// ];
+$rotas['/teste'] = [
+    'GET' => [
+        'controller' => App\controllers\AppController::class,
+        'action' => 'teste'
+    ]
+];
 
 $rotas['/'] = [
     'GET' => [
@@ -37,7 +37,7 @@ $rotas['/chamados'] = [
 $rotas['/usuarios'] = [
     'GET' => [
         'controller' => App\controllers\UsuarioController::class,
-        'action' => 'buscarUsuarios'
+        'action' => 'pesquisaUsuario'
     ]
 ];
 

@@ -4,9 +4,8 @@ namespace App\controllers;
 
 use App\models\Ticket;
 use App\models\Usuario;
-use Cosanpa\PortalGlpi\Controller;
-use Cosanpa\PortalGlpi\Infra\TicketsRepository;
 use Cosanpa\PortalGlpi\Util;
+use Cosanpa\PortalGlpi\Controller;
 
 class TicketController extends Controller
 {
@@ -29,26 +28,25 @@ class TicketController extends Controller
         $login = htmlspecialchars($_POST['login']) ?? ''; 
         $assunto = htmlspecialchars($_POST['assunto']) ?? '';
         $descricao = htmlspecialchars($_POST['descricao']) ?? '';
-        $info = htmlspecialchars($_POST['info']) ?? '';
+        $infoAdc = htmlspecialchars($_POST['info']) ?? '';
+
+        $drt = htmlspecialchars($_POST['drt']) ?? '';
+        $nome = htmlspecialchars($_POST['nome']) ?? '';
+        $setor = htmlspecialchars($_POST['setor']) ?? '';
+        $pasta = htmlspecialchars($_POST['pasta']) ?? '';
 
         $usuario = new Usuario();
-        if(!$usuario->autenticacao($_POST['login'])) {
+        if(!$infoUser = $usuario->autenticacao($login)) {
             Util::redireciona('/',['alert'=>'Usuário não existe']);
         }
 
-        if($resultado = $this->ticket->criarNovoTicket($cod, $login, $info, $assunto, $descricao)) {
-            
+        $this->ticket->criarTicket($cod, $infoUser, $infoAdc, $assunto, $descricao);
+
+        if($ticket = $this->ticket->criarTicket($cod, $infoUser, $infoAdc, $assunto, $descricao)) {
+            Util::redireciona('/',['alert'=>'Parabéns, seu chamado foi resgistrado','ticket'=>$ticket['id']]);
         }
 
-        // $usuario = new Usuario($_POST['login'],$_POST['senha']);
-        // $usuario
-        // if ($cod = $_POST['codigo'] ?? false) {
-        //     $title = $_POST['assunto'] ?? '';
-        //     $content = $_POST['descricao'] ?? '';
-        //     $info = $_POST['info'] ?? '';
-        //     $ticket = new Ticket();
-        //     $ticket->criarNovoTicket($cod, $title, $content, $info);
-        //     Util::redireciona('');
-        // }
+        Util::redireciona('/',['alert'=>'Que pena, seu chamado não foi aceito. Contate a UEST no 3202-8551 para esclarecimentos']);
+
     }
 }

@@ -37,6 +37,14 @@ main {
     overflow: auto;
 }
 
+p {
+    font-size: 1.1rem
+}
+
+#modal-x {
+    border-radius: 0;
+}
+
 @media screen and (max-width: 768px)
 {
     .box-login {

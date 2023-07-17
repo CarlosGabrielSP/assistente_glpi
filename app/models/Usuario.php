@@ -6,22 +6,19 @@ use Cosanpa\PortalGlpi\Infra\UsersRepository;
 
 class Usuario
 {
-    private $login;
-    private $senha;
+    // private $login;
+    // private $senha;
 
     // function __cosntruct($login)
     // {
     //     $this->login = $login;
-    //     // $this->senha = $senha;
+    //     $this->senha = $senha;
     // }
 
-    public function autentica($nome,$senha)
+    public function autenticacao($nome)
     {
-        $usuarioRepository = new UsersRepository();
-            if($dadosUsuario = $usuarioRepository->findByName($nome,$senha)) {
-            
-        }
-
+        return (new UsersRepository)->findByName($nome);
+        /* Adicionar validação de SENHA via LDAP */
     }
 
 }

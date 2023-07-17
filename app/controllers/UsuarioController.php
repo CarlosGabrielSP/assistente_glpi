@@ -7,12 +7,13 @@ use Cosanpa\PortalGlpi\Infra\UsersRepository;
 
 class UsuarioController extends Controller
 {
-    public function pesquisaUsuario(){
-        if(!$name = $_POST['nome'] ?? false){
-            
-        }
 
-        $usuarioRepository = new UsersRepository();
-        $usuarioRepository->findByName($_POST['nome']);
+    // TESTE
+    public function pesquisaUsuario(){
+        echo  date('Y-m-d H:i:s');
+        echo "<pre>";
+        print_r((new UsersRepository)->findByName("05606-5"));
+        echo "</pre>";
+        exit();
     }
 }
