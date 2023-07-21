@@ -1,86 +1,60 @@
 <?php require_once 'header.php' ?>
 
+<h1><?= $usuario ?? 'Nada' ?></h1>
 
-<h1>Exemplo de Página com Modais</h1>
+<input type="text" id="campo-pesquisa" name="termo" placeholder="Digite o termo de pesquisa">
 
-<div class="ui three stackable cards">
-    <div class="card">
-        <div class="content">
-            <div class="header">Modal 1</div>
-            <div class="description">Conteúdo do modal 1</div>
-        </div>
-        <div class="extra content">
-            <button class="ui primary basic button" id="modal-1-button">Abrir Modal 1</button>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="content">
-            <div class="header">Modal 2</div>
-            <div class="description">Conteúdo do modal 2</div>
-        </div>
-        <div class="extra content">
-            <button class="ui primary basic button" id="modal-2-button">Abrir Modal 2</button>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="content">
-            <div class="header">Modal 3</div>
-            <div class="description">Conteúdo do modal 3</div>
-        </div>
-        <div class="extra content">
-            <button class="ui primary basic button" id="modal-3-button">Abrir Modal 3</button>
-        </div>
+<div class="ui form">
+    <div class="field">
+        <label>Login</label>
+        <select class="ui search selection dropdown">
+            <option value="">Informe seu DRT/RG</option>
+            <option value="AL">Alabama</option>
+            <option value="AK">Alaska</option>
+        </select>
     </div>
 </div>
 
-<div class="ui modal" id="modal-1">
-    <div class="header">Modal 1</div>
-    <div class="content">
-        <p>Conteúdo do modal 1</p>
-    </div>
-    <div class="actions">
-        <div class="ui black deny button">Fechar</div>
-    </div>
-</div>
-
-<div class="ui modal" id="modal-2">
-    <div class="header">Modal 2</div>
-    <div class="content">
-        <p>Conteúdo do modal 2</p>
-    </div>
-    <div class="actions">
-        <div class="ui black deny button">Fechar</div>
-    </div>
-</div>
-
-<div class="ui modal" id="modal-3">
-    <div class="header">Modal 3</div>
-    <div class="content">
-        <p>Conteúdo do modal 3</p>
-    </div>
-    <div class="actions">
-        <div class="ui black deny button">Fechar</div>
-    </div>
-</div>
+<ul id="resultados"></ul>
 
 <script>
     $(document).ready(function() {
-        $('#modal-1-button').click(function() {
-            $('#modal-1').modal('show');
-        });
+        $('#campo-pesquisa').on('input', function() {
+            var termo = $(this).val();
 
-        $('#modal-2-button').click(function() {
-            $('#modal-2').modal('show');
-        });
+            $.ajax({
+                url: '/usuarios',
+                method: 'POST',
+                data: {
+                    termo: termo
+                },
+                success: function(response) {
+                    // console.debug(response[0]);
+                    $('#resultados').empty();
+                    var obj = JSON.parse(response);
 
-        $('#modal-3-button').click(function() {
-            $('#modal-3').modal('show');
+                    if (response.length > 0) {
+                        $.each(obj, function(index, elemento) {
+                            // console.log(elemento);
+                            var li = $('<li>').text(elemento.name);
+                            $('#resultados').append(li);
+                        });
+                    } else {
+                        var li = $('<li>').text('Nenhum resultado encontrado');
+                        $('#resultados').append(li);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log('Ocorreu um erro:', error);
+                }
+            });
+
         });
     });
 </script>
+</body>
 
+</html>
 
 
 <?php require_once 'footer.php' ?>

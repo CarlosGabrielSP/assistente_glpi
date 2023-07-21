@@ -8,6 +8,7 @@ class Controller
     {
         extract($dados);
         require __DIR__ . "/../app/views/" . $view . ".tpl.php";
+        
     }
     
 }

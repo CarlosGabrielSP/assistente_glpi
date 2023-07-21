@@ -4,7 +4,11 @@ $rotas['/teste'] = [
     'GET' => [
         'controller' => App\controllers\AppController::class,
         'action' => 'teste'
-    ]
+    ],
+    'POST' => [
+        'controller' => App\controllers\AppController::class,
+        'action' => 'pesquisa'
+    ],
 ];
 
 $rotas['/'] = [
@@ -21,6 +25,22 @@ $rotas['/erro404'] = [
     ]
 ];
 
+// LOGIN #################################################################################################
+
+$rotas['/login'] = [
+    'POST' => [
+        'controller' => App\controllers\LoginController::class,
+        'action' => 'logar'
+    ],
+];
+
+$rotas['/logoff'] = [
+    'GET' => [
+        'controller' => App\controllers\LoginController::class,
+        'action' => 'deslogar'
+    ],
+];
+
 // CAHAMADOS ############################################################################################
 $rotas['/chamados'] = [
     'GET' => [
@@ -35,7 +55,7 @@ $rotas['/chamados'] = [
 
 // USUÁRIOS #############################################################################################
 $rotas['/usuarios'] = [
-    'GET' => [
+    'POST' => [
         'controller' => App\controllers\UsuarioController::class,
         'action' => 'pesquisaUsuario'
     ]

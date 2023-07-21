@@ -16,4 +16,16 @@ class UsersRepository extends Repository
         $stm->execute();
         return ($stm->fetch());
     }
+
+    public function findByName2(string $name)
+    {
+        $qry = 'SELECT name FROM ' . $this->tabela . " WHERE name LIKE :name";
+        $stm = $this->PDOconexao->prepare($qry);
+        $stm->bindParam(':name', $name);
+        $stm->setFetchMode(PDO::FETCH_ASSOC);
+        $stm->execute([':name'=>$name.'%']);
+        return ($stm->fetchAll());
+    }
+
+    
 }

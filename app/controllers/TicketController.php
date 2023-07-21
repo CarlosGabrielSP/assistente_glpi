@@ -2,28 +2,33 @@
 
 namespace App\controllers;
 
-use App\models\Ticket;
-use App\models\Usuario;
+use App\models\User;
+use App\services\TicketService;
+use App\services\UserService;
 use Cosanpa\PortalGlpi\Util;
 use Cosanpa\PortalGlpi\Controller;
 
 class TicketController extends Controller
 {
-    private $ticket;
+    private $ticketServico;
 
     function __construct()
     {
-        $this->ticket = new Ticket;
+        $this->ticketServico = new TicketService;
     }
 
     public function listaChamados()
     {
-        $lista = $this->ticket->buscaTodos();
+        $lista = $this->ticketServico->buscaTodos();
         $this->view('tickets/lista', ['lista' => $lista]);
     }
 
     public function abrirChamado()
     {
+        if(!isset($_SESSION['login']) || empty($_SESSION['login'])){
+            Util::redireciona('/',['alert'=>'Usuario não logado']);
+        }
+
         $cod = htmlspecialchars($_POST['cod']) ?? '';
         $login = htmlspecialchars($_POST['login']) ?? ''; 
         $assunto = htmlspecialchars($_POST['assunto']) ?? '';
@@ -35,14 +40,16 @@ class TicketController extends Controller
         $setor = htmlspecialchars($_POST['setor']) ?? '';
         $pasta = htmlspecialchars($_POST['pasta']) ?? '';
 
-        $usuario = new Usuario();
-        if(!$infoUser = $usuario->autenticacao($login)) {
+        $usuario = new User();
+
+        $userService = new UserService();
+        if(!$infoUser = $userService->login($login,$senha)) {
             Util::redireciona('/',['alert'=>'Usuário não existe']);
         }
 
-        $this->ticket->criarTicket($cod, $infoUser, $infoAdc, $assunto, $descricao);
+        $this->ticketServico->criarTicket($cod, $infoUser, $infoAdc, $assunto, $descricao);
 
-        if($ticket = $this->ticket->criarTicket($cod, $infoUser, $infoAdc, $assunto, $descricao)) {
+        if($ticket = $this->ticketServico->criarTicket($cod, $infoUser, $infoAdc, $assunto, $descricao)) {
             Util::redireciona('/',['alert'=>'Parabéns, seu chamado foi resgistrado','ticket'=>$ticket['id']]);
         }
 

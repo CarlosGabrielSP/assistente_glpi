@@ -7,7 +7,7 @@ use Cosanpa\PortalGlpi\Controller;
 class AppController extends Controller
 {
     public function teste(){
-        $this->view("teste2");
+        $this->view("teste");
     }
 
     public function index(){
@@ -17,5 +17,7 @@ class AppController extends Controller
     public function erro404(){
         $this->view('app/404');
     }
+
+
 
 }
