@@ -2,17 +2,25 @@
 
 namespace App\controllers;
 
+use App\services\UserService;
 use Cosanpa\PortalGlpi\Controller;
-use Cosanpa\PortalGlpi\Infra\UsersRepository;
 
 class UsuarioController extends Controller
 {
+    private $userServico;
 
-    // TESTE
-    public function pesquisaUsuario(){
+    function __construct()
+    {
+        $this->userServico = new UserService;
+    }
 
-        $resultados = (new UsersRepository)->findByName2($_POST['termo']);
-        echo json_encode($resultados);
+    public function pesquisaUsuario()
+    {
+        if($this->userServico->buscaUsuario($_POST['usuario'])) {
+            echo '1';
+        } else {
+            echo '0';
+        }
         
     }
 }

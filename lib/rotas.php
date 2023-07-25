@@ -42,11 +42,11 @@ $rotas['/logoff'] = [
 ];
 
 // CAHAMADOS ############################################################################################
-$rotas['/chamados'] = [
-    'GET' => [
-        'controller' => App\controllers\TicketController::class,
-        'action' => 'listaChamados'
-    ],
+$rotas['/novoChamado'] = [
+    // 'GET' => [
+    //     'controller' => App\controllers\TicketController::class,
+    //     'action' => 'listaChamados'
+    // ],
     'POST' => [
         'controller' => App\controllers\TicketController::class,
         'action' => 'abrirChamado'

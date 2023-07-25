@@ -13,7 +13,7 @@ class TicketService
         $this->repositorio = new TicketsRepository;
     }
 
-    public function criarTicket($cod, $usuario, $info='', $assunto='', $descricao='')
+    public function criarTicket($cod, $usuario, $info = '', $assunto = '', $descricao = '')
     {
         switch ($cod) {
             case 1:
@@ -61,20 +61,25 @@ class TicketService
             default:
                 return false;
         }
+        
+        $descricao .= "\n\nInformações Adicionais:\n" . $info;
 
-        $descricao .= "/n/nInformações Adicionais:\n" . $info;
-
-        // Está setada a entidade raiz, posteriormente alterar para a entidade padrão.
-        $this->repositorio->save(
-            ['entities_id'=> 0,
-            'name'=> $assunto,
+        $dados = [
+            'entities_id' => 0,
+            'name' => $assunto,
             'date' => date('Y-m-d H:i:s'),
             'users_id_recipient' => $usuario['id'],
-            'descricao' => $descricao,
+            'content' => $descricao,
             'urgency' => 3,
             'impact' => 3,
             'priority' => 3,
-            'date_creation' => date('Y-m-d H:i:s')]);
+            'date_creation' => date('Y-m-d H:i:s')
+        ];
+        // Está setada a entidade raiz, posteriormente alterar para a entidade padrão.
+        if (!$ticket = $this->repositorio->saveTicket($dados)) {
+            return false;
+        }
+        return $this->repositorio->last();
     }
 
     public function buscaTodos()

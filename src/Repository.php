@@ -60,8 +60,8 @@ abstract class Repository
         $colunas = implode(",", array_keys($array_dados));
         $valores = implode("','", $array_dados);
         $qry = "INSERT INTO " . $this->tabela . " ({$colunas}) VALUES ('{$valores}')";
-        var_dump($qry);
-        exit();
+        // var_dump($qry);
+        // exit();
         $stm = $this->PDOconexao->prepare($qry);
         if($stm->execute()){
             return $this->last();

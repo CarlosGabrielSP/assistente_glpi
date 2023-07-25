@@ -4,7 +4,9 @@ namespace Cosanpa\PortalGlpi;
 
 class Util
 {
-    public static function redireciona(String $url = "/", array $dados = []) {
+    // Envio das variáveis via GET
+    public static function redireciona(String $url = "/", array $dados = []) 
+    {
         if($dados){
             $i = 1;
             $url .= "?";

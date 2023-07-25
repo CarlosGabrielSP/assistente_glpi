@@ -2,7 +2,6 @@
 
 namespace App\controllers;
 
-use App\models\User;
 use App\services\TicketService;
 use App\services\UserService;
 use Cosanpa\PortalGlpi\Util;
@@ -25,35 +24,31 @@ class TicketController extends Controller
 
     public function abrirChamado()
     {
-        if(!isset($_SESSION['login']) || empty($_SESSION['login'])){
-            Util::redireciona('/',['alert'=>'Usuario não logado']);
+        $cod = htmlspecialchars($_POST['cod'] ?? '');
+        $assunto = htmlspecialchars($_POST['assunto'] ?? '');
+        $descricao = htmlspecialchars($_POST['descricao'] ?? '');
+        $infoAdc = htmlspecialchars($_POST['info'] ?? '');
+        
+        if (!$usuario = $_SESSION['user'] ?? false) {
+            if ($nomeUsuario = htmlspecialchars($_POST['nomeUsuario'] ?? false)) {
+                if (!$usuario = (new UserService)->buscaUsuario($nomeUsuario)) {
+                    Util::notificacao('erro', 'Usuário informado existe');
+                    Util::redireciona('/');
+                }
+            } else {
+                Util::notificacao('erro', 'Usuário não informado');
+                Util::redireciona('/');
+            }
         }
 
-        $cod = htmlspecialchars($_POST['cod']) ?? '';
-        $login = htmlspecialchars($_POST['login']) ?? ''; 
-        $assunto = htmlspecialchars($_POST['assunto']) ?? '';
-        $descricao = htmlspecialchars($_POST['descricao']) ?? '';
-        $infoAdc = htmlspecialchars($_POST['info']) ?? '';
+        $ticket = $this->ticketServico->criarTicket($cod, $usuario, $infoAdc, $assunto, $descricao);
 
-        $drt = htmlspecialchars($_POST['drt']) ?? '';
-        $nome = htmlspecialchars($_POST['nome']) ?? '';
-        $setor = htmlspecialchars($_POST['setor']) ?? '';
-        $pasta = htmlspecialchars($_POST['pasta']) ?? '';
-
-        $usuario = new User();
-
-        $userService = new UserService();
-        if(!$infoUser = $userService->login($login,$senha)) {
-            Util::redireciona('/',['alert'=>'Usuário não existe']);
+        if ($ticket) {
+            Util::notificacao('info', 'Parabéns, seu chamado foi resgistrado');
+        } else {
+            Util::notificacao('erro', 'Que pena, seu chamado não foi aceito. Contate a UEST no 3202-8551 para esclarecimentos');
         }
 
-        $this->ticketServico->criarTicket($cod, $infoUser, $infoAdc, $assunto, $descricao);
-
-        if($ticket = $this->ticketServico->criarTicket($cod, $infoUser, $infoAdc, $assunto, $descricao)) {
-            Util::redireciona('/',['alert'=>'Parabéns, seu chamado foi resgistrado','ticket'=>$ticket['id']]);
-        }
-
-        Util::redireciona('/',['alert'=>'Que pena, seu chamado não foi aceito. Contate a UEST no 3202-8551 para esclarecimentos']);
-
+        Util::redireciona('/');
     }
 }

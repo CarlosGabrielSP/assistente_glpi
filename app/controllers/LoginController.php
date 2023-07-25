@@ -11,18 +11,19 @@ class LoginController extends Controller
     public function logar(){
         $nome = $_POST['nome'];
         $senha = $_POST['senha'];
-        $alert = ['alert'=>'Logado com sucesso'];
 
-        if(!(new UserService)->login($nome, $senha)) {
-            $alert = ['alert'=>$alert];
+        $login = (new UserService)->login($nome, $senha);
+        if(!$login[0]) {
+            Util::notificacao('erro',$login[1]);
+            if($login[2]) {
+                Util::redireciona('/',['usr' => $login[2]]);
+            }
         }
-
-        Util::redireciona('/',$alert);
+        Util::redireciona('/');
     }
 
     public function deslogar(){
         (new UserService)->logoff();
-        Util::notificacao('info','Desconectado');
         Util::redireciona('/');
     }
 }
