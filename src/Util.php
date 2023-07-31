@@ -27,7 +27,7 @@ class Util
                 $_SESSION['notificacao'] = (object) ['status' => 'success', 'msg' => $msg??'Operação realizada com Sucesso'];
                 break;
             case "erro":
-                $_SESSION['notificacao'] = (object) ['status' => 'danger', 'msg' => $msg??'Ocorreu um erro ao executar operação'];
+                $_SESSION['notificacao'] = (object) ['status' => 'red', 'msg' => $msg??'Ocorreu um erro ao executar operação'];
                 break;
             case "info":
                 $_SESSION['notificacao']  = (object) ['status' => 'info', 'msg' => $msg??'']; 

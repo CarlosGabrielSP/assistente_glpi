@@ -44,7 +44,7 @@ class TicketController extends Controller
         $ticket = $this->ticketServico->criarTicket($cod, $usuario, $infoAdc, $assunto, $descricao);
 
         if ($ticket) {
-            Util::notificacao('info', 'Parabéns, seu chamado foi resgistrado');
+            Util::notificacao('success', 'Parabéns, seu chamado foi resgistrado');
         } else {
             Util::notificacao('erro', 'Que pena, seu chamado não foi aceito. Contate a UEST no 3202-8551 para esclarecimentos');
         }

@@ -21,6 +21,5 @@ class UsuarioController extends Controller
         } else {
             echo '0';
         }
-        
     }
 }

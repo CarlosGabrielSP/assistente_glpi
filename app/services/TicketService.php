@@ -65,7 +65,7 @@ class TicketService
         $descricao .= "\n\nInformações Adicionais:\n" . $info;
 
         $dados = [
-            'entities_id' => 0,
+            'entities_id' => 1,
             'name' => $assunto,
             'date' => date('Y-m-d H:i:s'),
             'users_id_recipient' => $usuario['id'],

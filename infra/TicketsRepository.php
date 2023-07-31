@@ -6,7 +6,6 @@ use Cosanpa\PortalGlpi\Repository;
 
 class TicketsRepository extends Repository
 {
-    
     public function saveTicket($array_dados)
     {
         if($lastTicket = $this->save($array_dados)) {
@@ -17,5 +16,4 @@ class TicketsRepository extends Repository
         }
         return false;
     }
-
 }

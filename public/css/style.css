@@ -2,13 +2,26 @@
 body {
     background-image: url('/img/background.jpg');
     background-size: cover;
+    position: relative;
+    overflow: hidden;
 }
 
 main {
     padding: 5%;
 }
 
-.box-main-home{
+#notificacao {
+    position: absolute!important;
+    top: 10px;
+    left: 5%;
+    right: 5%;
+}
+
+input::placeholder {
+    color: #333!important;
+}
+
+.box-main-home {
     border-radius: 20px;
     height: 80vh;
     background: rgba(255, 255, 255, 0.4);
@@ -18,7 +31,7 @@ main {
     overflow: hidden;
 }
 
-.box-login{
+.box-login {
     height: 100%;
     padding: 20px;
     float: left;
@@ -41,8 +54,17 @@ p {
     font-size: 1.1rem
 }
 
-#modal-x {
-    border-radius: 0;
+.card h3.header {
+    max-width: 200px;
+}
+
+.card {
+    min-height: 80px!important;
+}
+
+#modal-b1, #modal-a1 {
+    border-radius: 0!important;
+    padding: 20px;
 }
 
 @media screen and (max-width: 768px)
