@@ -5,22 +5,23 @@
         <div id="form-login-home">
             <div class="box-head">
                 <img class="ui tiny centered image circular animate__animated animate__rotateIn" src="/img/logo.png" alt="logo">
-                <h3 class="header" style="color: white; text-align:center;">UE - Suporte Tecnológico</h3>
+                <h1 class="header" style="color: white; text-align:center">Unidade Executiva <br> Suporte Tecnológico</h1>
+                <!-- <p class="header" style="color: white; text-align:center;">UEST</p> -->
+                <p class="header" style="color: white; text-align:center;">Assistente de Abertura de Chamados</p>
             </div>
+            <br />
             <div class="login" style="margin-top: 20px;">
                 <?php if ($usuario = $_SESSION['user'] ?? false) { ?>
                     <p style="color: white"><span>Bem vindo(a), <strong><?= $usuario['firstname'] ?></strong></span></p>
-                    <a href="http://suporte.cosanpa.pa.gov.br" target="_blank" class="ui fluid teal submit button">Ver meus chamados</a>
-                    <br>
                     <a href="/logoff" class="ui inverted mini basic red button">Sair</a>
                 <?php } else { ?>
                     <form class="ui form" method="POST" action="/login">
                         <div class="field">
                             <input type="text" id="nome-login" name="nome" placeholder="Usuário" value="<?= $_GET['usr'] ?? '' ?>" required>
                         </div>
-                        <div class="field">
+                        <!-- <div class="field">
                             <input type="password" id="senha" name="senha" placeholder="Senha" required>
-                        </div>
+                        </div> -->
                         <button type="submit" class="ui fluid large teal submit button">
                             Acessar&nbsp&nbsp<i class="icon sign-in"></i>
                         </button>
@@ -28,31 +29,24 @@
                 <?php } ?>
             </div>
         </div>
+        <div id="btn-chamados">
+            <a href="http://suporte.cosanpa.pa.gov.br" target="_blank" class="ui primary button" style="width: 80%;">Ver meus chamados</a>
+            <a href="/arquivos/manual" target="_blank" class="ui right floated icon orange  button"style="width: 15%;"><i class="help link icon"></i></a>
+        </div>
+
     </div>
     <div class="box-dashboard">
         <h1 class="ui center aligned header">Do que você está precisando?</h1>
         <br>
         <div class="ui three cards">
-            <a id="card-1" class="ui raised card" href="#">
-                <span class="ui black huge right corner label">
-                    <i class="clipboard check icon"></i>
+            <a id="card-12" class="ui raised card card-x" href="#">
+                <span class="ui teal huge right corner label">
+                    <i class="user icon"></i>
                 </span>
                 <div class="content">
-                    <h3 class="header">Abrir um Chamado</h3>
+                    <h3 class="header">Esqueci minha senha de Usuário</h3>
                     <div class="description">
-                        <p style="display: none">Solicitar abertura de chamado</p>
-                    </div>
-                </div>
-            </a>
-
-            <a id="card-2" class="ui raised card card-x" href="#">
-                <span class="ui violet huge right corner label">
-                    <i class="sitemap icon"></i>
-                </span>
-                <div class="content">
-                    <h3 class="header">Novo ponto de rede</h3>
-                    <div class="description">
-                        <p style="display: none">Solicito criação de novo ponto de rede</p>
+                        <p style="display: none">Solicito redefinição da minha senha de Usuário</p>
                     </div>
                 </div>
             </a>
@@ -69,30 +63,6 @@
                 </div>
             </a>
 
-            <a id="card-4" class="ui raised card card-x" href="#">
-                <span class="ui violet huge right corner label">
-                    <i class="chrome icon"></i>
-                </span>
-                <div class="content">
-                    <h3 class="header">Estou sem acesso à Internet</h3>
-                    <div class="description">
-                        <p style="display: none">Solicito suporte relacionado à internet</p>
-                    </div>
-                </div>
-            </a>
-
-            <a id="card-6" class="ui raised card card-x" href="#">
-                <span class="ui orange huge right corner label">
-                    <i class="envelope open icon"></i>
-                </span>
-                <div class="content">
-                    <h3 class="header">Nova conta de e-mail</h3>
-                    <div class="description">
-                        <p style="display: none">Solicito criação de nova conta de e-mail</p>
-                    </div>
-                </div>
-            </a>
-
             <a id="card-5" class="ui raised card card-x" href="#">
                 <span class="ui violet huge right corner label">
                     <i class="folder open icon"></i>
@@ -105,14 +75,14 @@
                 </div>
             </a>
 
-            <a id="card-7" class="ui raised card card-x" href="#">
-                <span class="ui teal huge right corner label">
-                    <i class="user icon"></i>
+            <a id="card-4" class="ui raised card card-x" href="#">
+                <span class="ui violet huge right corner label">
+                    <i class="chrome icon"></i>
                 </span>
                 <div class="content">
-                    <h3 class="header">Nova conta de usuário (Acesso ao computador)</h3>
+                    <h3 class="header">Estou sem acesso à Internet</h3>
                     <div class="description">
-                        <p style="display: none">Solicito criação de nova conta de usuário</p>
+                        <p style="display: none">Solicito suporte relacionado à internet</p>
                     </div>
                 </div>
             </a>
@@ -125,6 +95,30 @@
                     <h3 class="header">Não consigo enviar/receber e-mails</h3>
                     <div class="description">
                         <p style="display: none">Solicito suporte relacionado à conta de e-mail</p>
+                    </div>
+                </div>
+            </a>
+
+            <a id="card-7" class="ui raised card card-x" href="#">
+                <span class="ui teal huge right corner label">
+                    <i class="user plus icon"></i>
+                </span>
+                <div class="content">
+                    <h3 class="header">Nova conta de usuário (Acesso ao computador)</h3>
+                    <div class="description">
+                        <p style="display: none">Solicito criação de nova conta de usuário de rede</p>
+                    </div>
+                </div>
+            </a>
+
+            <a id="card-6" class="ui raised card card-x" href="#">
+                <span class="ui orange huge right corner label">
+                    <i class="envelope open icon"></i>
+                </span>
+                <div class="content">
+                    <h3 class="header">Nova conta de e-mail</h3>
+                    <div class="description">
+                        <p style="display: none">Solicito criação de nova conta de e-mail</p>
                     </div>
                 </div>
             </a>
@@ -146,9 +140,9 @@
                     <i class="print icon"></i>
                 </span>
                 <div class="content">
-                    <h3 class="header">Impressora não está imprimindo</h3>
+                    <h3 class="header">Substituição do Toner da Impressora</h3>
                     <div class="description">
-                        <p style="display: none">Solicito suporte relacionao à impressora</p>
+                        <p style="display: none">A tinta da impressora está fraca, por esse motivo, solicito troca do Toner</p>
                     </div>
                 </div>
             </a>
@@ -161,6 +155,42 @@
                     <h3 class="header">Apareceu um aviso de vírus em meu computador</h3>
                     <div class="description">
                         <p style="display: none">Solicito varredura e remoção de vírus de computador</p>
+                    </div>
+                </div>
+            </a>
+
+            <a id="card-11" class="ui raised card card-x" href="#">
+                <span class="ui brown huge right corner label">
+                    <i class="print icon"></i>
+                </span>
+                <div class="content">
+                    <h3 class="header">Impressora não está imprimindo</h3>
+                    <div class="description">
+                        <p style="display: none">Solicito suporte relacionao à impressora</p>
+                    </div>
+                </div>
+            </a>
+
+            <a id="card-2" class="ui raised card card-x" href="#">
+                <span class="ui violet huge right corner label">
+                    <i class="sitemap icon"></i>
+                </span>
+                <div class="content">
+                    <h3 class="header">Novo ponto de rede</h3>
+                    <div class="description">
+                        <p style="display: none">Solicito criação de novo ponto de rede</p>
+                    </div>
+                </div>
+            </a>
+
+            <a id="card-1" class="ui raised card" href="#">
+                <span class="ui black huge right corner label">
+                    <i class="clipboard check icon"></i>
+                </span>
+                <div class="content">
+                    <h3 class="header">Abrir um Chamado</h3>
+                    <div class="description">
+                        <p style="display: none">Solicitar abertura de chamado</p>
                     </div>
                 </div>
             </a>
@@ -198,7 +228,7 @@
                     <div class="header">
                         Acrescente detalhes
                     </div>
-                    <p>Lembre-se de incluir todos as informações relevantes, como: <strong>DRT</strong> do solicitante, <strong>Setor</strong>, <strong>Tombamento</strong>, <strong>E-mail</strong> e qualquer outra informação que possa ser útil.</p>
+                    <p>Lembre-se de incluir todas as informações relevantes, como: <strong>DRT</strong> do solicitante, <strong>Setor</strong>, <strong>Tombamento</strong>, <strong>E-mail</strong> e qualquer outra informação que possa ser útil.</p>
                 </div>
             </div>
         </div>
@@ -267,7 +297,7 @@
                 <div class="header">
                     Acrescente detalhes
                 </div>
-                <p>Lembre-se de incluir todos as informações relevantes, como: <strong>DRT do solicitante</strong>, <strong>Setor</strong>, <strong>Tombamento</strong>, <strong>E-mail</strong> e qualquer outra informação que possa ser útil.</p>
+                <p>Lembre-se de incluir todas as informações relevantes, como: <strong>DRT do solicitante</strong>, <strong>Setor</strong>, <strong>Tombamento</strong>, <strong>E-mail</strong> e qualquer outra informação que possa ser útil.</p>
             </div>
         </div>
     </div>

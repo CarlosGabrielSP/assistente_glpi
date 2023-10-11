@@ -1,4 +1,3 @@
-
 body {
     background-image: url('/img/background.jpg');
     background-size: cover;
@@ -11,14 +10,14 @@ main {
 }
 
 #notificacao {
-    position: absolute!important;
+    position: absolute !important;
     top: 10px;
     left: 5%;
     right: 5%;
 }
 
 input::placeholder {
-    color: #333!important;
+    color: #333 !important;
 }
 
 .box-main-home {
@@ -44,6 +43,14 @@ input::placeholder {
     border: 2px solid white;
 }
 
+#btn-chamados {
+    position: absolute;
+    right: 20px;
+    left: 20px;
+    bottom: 20px;
+}
+
+
 .box-dashboard {
     height: 100%;
     padding: 20px;
@@ -54,21 +61,25 @@ p {
     font-size: 1.1rem
 }
 
-.card h3.header {
-    max-width: 200px;
-}
-
 .card {
-    min-height: 80px!important;
+    min-height: 80px !important;
 }
 
-#modal-b1, #modal-a1 {
-    border-radius: 0!important;
+.card .content {
+    z-index: 999;
+}
+
+.card h3.header {
+    width: 90%;
+}
+
+#modal-b1,
+#modal-a1 {
+    border-radius: 0 !important;
     padding: 20px;
 }
 
-@media screen and (max-width: 768px)
-{
+@media screen and (max-width: 768px) {
     .box-login {
         height: 350px;
         float: none;

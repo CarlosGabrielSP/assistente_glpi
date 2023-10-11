@@ -10,9 +10,9 @@ class LoginController extends Controller
 {
     public function logar(){
         $nome = $_POST['nome'];
-        $senha = $_POST['senha'];
+        // $senha = $_POST['senha'];
 
-        $login = (new UserService)->login($nome, $senha);
+        $login = (new UserService)->login($nome);
         if(!$login[0]) {
             Util::notificacao('erro',$login[1]);
             if($login[2]) {

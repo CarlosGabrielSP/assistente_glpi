@@ -57,15 +57,18 @@ class TicketService
             case 11:
                 $assunto = "Impressora não está imprimindo";
                 $descricao = "Solicito suporte relacionao à impressora.";
+            case 12:
+                $assunto = "Esqueci minha senha de Usuário";
+                $descricao = "Solicito suporte relacionao à impressora.";
                 break;
             default:
                 return false;
         }
-        
-        $descricao .= "\n\nInformações Adicionais:\n" . $info;
+
+        if($info) $descricao .= "\n\nInformações Adicionais:\n" . $info;
 
         $dados = [
-            'entities_id' => 1,
+            'entities_id' => 1, // Entidade SUPORTE id=1
             'name' => $assunto,
             'date' => date('Y-m-d H:i:s'),
             'users_id_recipient' => $usuario['id'],
@@ -73,9 +76,10 @@ class TicketService
             'urgency' => 3,
             'impact' => 3,
             'priority' => 3,
-            'date_creation' => date('Y-m-d H:i:s')
+            'date_creation' => date('Y-m-d H:i:s'),
+            'date_mod' => date('Y-m-d H:i:s')
         ];
-        // Está setada a entidade raiz, posteriormente alterar para a entidade padrão.
+
         if (!$ticket = $this->repositorio->saveTicket($dados)) {
             return false;
         }

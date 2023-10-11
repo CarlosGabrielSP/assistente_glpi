@@ -13,46 +13,27 @@ class Router
         $this->rotas = $rotas;
     }
 
-    /*Função verifica a existência da rota*/
-    // protected function rotaExiste($rota, $method){
-    //     return isset($this->rotas[$rota][$method]);
-    // }
-
     /*Função recupera a rota informada, se existir*/
-    protected function getInfoRota($rota, $method) : array
+    protected function getInfoRota($rota, $method): array
     {
-        if(isset($this->rotas[$rota][$method])){
-            return $this->rotas[$rota][$method];
+        if (!isset($this->rotas[$rota][$method])) {
+            Util::redireciona('/error404');
+            exit();
         }
+        return $this->rotas[$rota][$method];
     }
-
-    // protected function autenticacao($infoRota){
-    //     if($infoRota['restrito']){
-    //         if ($infoRota['restrito'] === 'aluno' && !isset($_SESSION['logado'])){
-    //             Util::redireciona('/login');
-    //         }
-    //         if ($infoRota['restrito'] === 'admin' && !isset($_SESSION['admin'])){
-    //             Util::redireciona('/admin/login');
-    //         }
-    //     }
-    // }
 
     public function handler()
     {
         $rota_acessada = explode("?", $_SERVER["REQUEST_URI"]);
-        if(is_array($rota_acessada)){
+        if (is_array($rota_acessada)) {
             $rota_acessada = $rota_acessada[0];
         }
         $method = $_SERVER['REQUEST_METHOD'];
-        if(strlen($rota_acessada) > 1) $rota_acessada = rtrim($rota_acessada,'/');
-        if($infoRota = $this->getInfoRota($rota_acessada,$method)){
-            // $this->autenticacao($infoRota);
-            $controller = new $infoRota['controller'];
-            $action = $infoRota['action'];
-            $controller->$action(3);
-        } else {
-            header('Location: ' . '/erro404');
-            exit();
-        }
+        if (strlen($rota_acessada) > 1) $rota_acessada = rtrim($rota_acessada, '/');
+        $infoRota = $this->getInfoRota($rota_acessada, $method);
+        $controller = new $infoRota['controller'];
+        $action = $infoRota['action'];
+        $controller->$action(3);
     }
 }

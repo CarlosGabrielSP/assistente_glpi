@@ -13,7 +13,7 @@ class UserService
         $this->repositorio = new UsersRepository;
     }
 
-    public function login($login, $senha): array
+    public function login($login, $senha = ""): array
     {
         unset($_SESSION['user']);
 
@@ -21,7 +21,7 @@ class UserService
 
         $result = $this->repositorio->autenticacao($usuario['user_dn'], $senha);
 
-        if (!$result) return [0, "A senha informada não confere", $usuario['name']];
+        if (!$result) return [0, "A senha informada não confere. Para solicitar redefinição de senha <a href='#'>clique aqui</a> ", $usuario['name']];
 
         $_SESSION['user']['id'] = $usuario['id'];
         $_SESSION['user']['name'] = $usuario['name'];

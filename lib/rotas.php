@@ -25,8 +25,14 @@ $rotas['/erro404'] = [
     ]
 ];
 
-// LOGIN #################################################################################################
+$rotas['/arquivos/manual'] = [
+    'GET' => [
+        'controller' => App\controllers\AppController::class,
+        'action' => 'manual'
+    ]
+];
 
+// LOGIN #################################################################################################
 $rotas['/login'] = [
     'POST' => [
         'controller' => App\controllers\LoginController::class,

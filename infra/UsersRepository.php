@@ -37,6 +37,7 @@ class UsersRepository extends Repository
 
         $ldapBind = ldap_bind($ldapConn, $ldapBaseDN, $pass);
         ldap_close($ldapConn);
+        
         return $ldapBind;
     }
 

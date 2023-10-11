@@ -14,7 +14,7 @@ class UsuarioController extends Controller
         $this->userServico = new UserService;
     }
 
-    public function pesquisaUsuario()
+    public function pesquisaUsuario()//Usado na pesquisa de usuário via AJAX 
     {
         if($this->userServico->buscaUsuario($_POST['usuario'])) {
             echo '1';

@@ -27,7 +27,7 @@ class TicketController extends Controller
         $cod = htmlspecialchars($_POST['cod'] ?? '');
         $assunto = htmlspecialchars($_POST['assunto'] ?? '');
         $descricao = htmlspecialchars($_POST['descricao'] ?? '');
-        $infoAdc = htmlspecialchars($_POST['info'] ?? '');
+        $infoAdc = htmlspecialchars($_POST['infoAdc'] ?? '');
         
         if (!$usuario = $_SESSION['user'] ?? false) {
             if ($nomeUsuario = htmlspecialchars($_POST['nomeUsuario'] ?? false)) {

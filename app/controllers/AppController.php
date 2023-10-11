@@ -15,9 +15,11 @@ class AppController extends Controller
     }
 
     public function erro404(){
-        $this->view('app/404');
+        $this->view('404');
     }
 
-
+    public function manual(){
+        $this->view('manual');
+    }
 
 }
