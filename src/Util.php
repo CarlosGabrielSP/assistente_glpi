@@ -4,7 +4,7 @@ namespace Cosanpa\PortalGlpi;
 
 class Util
 {
-    // Envio das variáveis via GET
+    // O Envio das variáveis deve ser via GET
     public static function redireciona(String $url = "/", array $dados = []) 
     {
         if($dados){
@@ -21,16 +21,18 @@ class Util
         exit();
     }
 
-    public static function notificacao(String $status = "info", String $msg = NULL) {
+    public static function notificacao(String $status = "info", String $msg = '')
+    {
         switch($status){
-            case "sucesso":
-                $_SESSION['notificacao'] = (object) ['status' => 'success', 'msg' => $msg??'Operação realizada com Sucesso'];
+            case "success":
+                $_SESSION['notificacao'] = (object) array('status' => 'success', 'msg' => $msg??'Operação realizada com Sucesso');
                 break;
-            case "erro":
-                $_SESSION['notificacao'] = (object) ['status' => 'red', 'msg' => $msg??'Ocorreu um erro ao executar operação'];
+            case "error":
+                $_SESSION['notificacao'] = (object) array('status' => 'error', 'msg' => $msg??'Ocorreu um erro ao executar operação');
                 break;
-            case "info":
-                $_SESSION['notificacao']  = (object) ['status' => 'info', 'msg' => $msg??'']; 
+            default:
+                $_SESSION['notificacao']  = (object) array('status' => 'info', 'msg' => $msg);
+                break;
         }
     }
 

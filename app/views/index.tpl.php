@@ -6,7 +6,6 @@
             <div class="box-head">
                 <img class="ui tiny centered image circular animate__animated animate__rotateIn" src="/img/logo.png" alt="logo">
                 <h1 class="header" style="color: white; text-align:center">Unidade Executiva <br> Suporte Tecnológico</h1>
-                <!-- <p class="header" style="color: white; text-align:center;">UEST</p> -->
                 <p class="header" style="color: white; text-align:center;">Assistente de Abertura de Chamados</p>
             </div>
             <br />
@@ -19,9 +18,6 @@
                         <div class="field">
                             <input type="text" id="nome-login" name="nome" placeholder="Usuário" value="<?= $_GET['usr'] ?? '' ?>" required>
                         </div>
-                        <!-- <div class="field">
-                            <input type="password" id="senha" name="senha" placeholder="Senha" required>
-                        </div> -->
                         <button type="submit" class="ui fluid large teal submit button">
                             Acessar&nbsp&nbsp<i class="icon sign-in"></i>
                         </button>
