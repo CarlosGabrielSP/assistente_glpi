@@ -5,8 +5,8 @@
         <div id="form-login-home">
             <div class="box-head">
                 <img class="ui tiny centered image circular animate__animated animate__rotateIn" src="/img/logo.png" alt="logo">
-                <h1 class="header" style="color: white; text-align:center">Unidade Executiva <br> Suporte Tecnológico</h1>
-                <p class="header" style="color: white; text-align:center;">Assistente de Abertura de Chamados</p>
+                <h1 class="header" style="color: white; text-align:center">Unidade Executiva <br /> Suporte Tecnológico</h1>
+                <p class="header" style="color: white; text-align:center;">UEST - USTI</p>
             </div>
             <br />
             <div class="login" style="margin-top: 20px;">
@@ -32,7 +32,7 @@
 
     </div>
     <div class="box-dashboard">
-        <h1 class="ui center aligned header">Do que você está precisando?</h1>
+        <h1 class="ui center aligned header">Assistente de Abertura de Chamados</h1>
         <br>
         <div class="ui three cards">
             <a id="card-12" class="ui raised card card-x" href="#">
