@@ -26,7 +26,7 @@
             </div>
         </div>
         <div id="btn-chamados">
-            <a href="http://suporte.cosanpa.pa.gov.br" target="_blank" class="ui primary button" style="width: 80%;">Ver meus chamados</a>
+            <a href="http://suporte.cosanpa.pa.gov.br:8080" target="_blank" class="ui primary button" style="width: 80%;">Ver meus chamados</a>
             <a href="/arquivos/manual" target="_blank" class="ui right floated icon orange  button"style="width: 15%;"><i class="help link icon"></i></a>
         </div>
 

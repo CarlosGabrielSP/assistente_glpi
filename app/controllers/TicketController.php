@@ -45,7 +45,7 @@ class TicketController extends Controller
         if ($ticket) {
             Util::notificacao(
                 'success',
-                "Sua solicitação foi registrada. O <strong>ID</strong> do seu chamado é <strong>t_{$ticket['id']}</strong>. Para acompanhar o progresso, <a href='http://suporte.cosanpa.pa.gov.br/front/ticket.form.php?id={$ticket['id']}'>Clique aqui!</a>");
+                "Sua solicitação foi registrada. O <strong>ID</strong> do seu chamado é <strong>t_{$ticket['id']}</strong>. Para acompanhar o progresso, <a href='http://suporte.cosanpa.pa.gov.br:8080/front/ticket.form.php?id={$ticket['id']}'>Clique aqui!</a>");
         } else {
             Util::notificacao('error', 'Que pena, seu chamado não foi aceito. Contate a UEST no 3202-8551 para esclarecimentos');
         }
