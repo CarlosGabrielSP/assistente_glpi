@@ -39,8 +39,13 @@ input::placeholder {
     position: relative;
 }
 
-.box-login img {
+#logo-cosanpa {
     border: 2px solid white;
+}
+
+.logos {
+    display: flex;
+    justify-content: space-around;
 }
 
 #btn-chamados {

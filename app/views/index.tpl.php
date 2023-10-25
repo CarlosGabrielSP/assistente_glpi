@@ -4,7 +4,10 @@
     <div class="box-login">
         <div id="form-login-home">
             <div class="box-head">
-                <img class="ui tiny centered image circular animate__animated animate__rotateIn" src="/img/logo.png" alt="logo">
+                <div class="logos">
+                    <img id="logo-cosanpa" class="ui tiny centered image circular animate__animated animate__rotateIn" src="/img/logo.png" alt="logo-cosanpa">
+                    <img class="ui small centered image animate__animated animate__fade" src="/img/logo-GLPI.png" alt="logo-glpi">
+                </div>
                 <h1 class="header" style="color: white; text-align:center">Unidade Executiva <br /> Suporte Tecnológico</h1>
                 <p class="header" style="color: white; text-align:center;">UEST - USTI</p>
             </div>
@@ -27,7 +30,7 @@
         </div>
         <div id="btn-chamados">
             <a href="http://suporte.cosanpa.pa.gov.br:8080" target="_blank" class="ui primary button" style="width: 80%;">Ver meus chamados</a>
-            <a href="/arquivos/manual" target="_blank" class="ui right floated icon orange  button"style="width: 15%;"><i class="help link icon"></i></a>
+            <a href="/arquivos/manual" target="_blank" class="ui right floated icon orange  button" style="width: 15%;"><i class="help link icon"></i></a>
         </div>
 
     </div>
