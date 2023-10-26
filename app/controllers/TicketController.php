@@ -33,7 +33,7 @@ class TicketController extends Controller
         $infoSetor = htmlspecialchars($_POST['setor'] ?? '');
         $infoRamal = htmlspecialchars($_POST['ramal'] ?? '');
 
-        $infoAdc .= 'E-mail: ' . $infoEmail . '\n' . 'Setor: ' . $infoSetor . '\n' . 'Ramal: ' . $infoRamal;
+        $infoAdc .= '\nE-mail: ' . $infoEmail . '\n' . 'Setor: ' . $infoSetor . '\n' . 'Ramal: ' . $infoRamal;
         
         if (!$usuario = $_SESSION['user'] ?? false) {
             if ($nomeUsuario) {
