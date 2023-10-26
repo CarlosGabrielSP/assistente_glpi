@@ -29,6 +29,11 @@ class TicketController extends Controller
         $assunto = htmlspecialchars($_POST['assunto'] ?? '');
         $descricao = htmlspecialchars($_POST['descricao'] ?? '');
         $infoAdc = htmlspecialchars($_POST['infoAdc'] ?? '');
+        $infoEmail = htmlspecialchars($_POST['email'] ?? '');
+        $infoSetor = htmlspecialchars($_POST['setor'] ?? '');
+        $infoRamal = htmlspecialchars($_POST['ramal'] ?? '');
+
+        $infoAdc .= 'E-mail: ' . $infoEmail . '\n' . 'Setor: ' . $infoSetor . '\n' . 'Ramal: ' . $infoRamal;
         
         if (!$usuario = $_SESSION['user'] ?? false) {
             if ($nomeUsuario) {
@@ -37,7 +42,7 @@ class TicketController extends Controller
                     Util::redireciona('/');
                 }
             } else {
-                Util::notificacao('erro', 'Usuário não informado');
+                Util::notificacao('error', 'Usuário não informado');
                 Util::redireciona('/');
             }
         }

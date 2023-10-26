@@ -19,7 +19,7 @@
                 <?php } else { ?>
                     <form class="ui form" method="POST" action="/login">
                         <div class="field">
-                            <input type="text" id="nome-login" name="nome" placeholder="Usuário" value="<?= $_GET['usr'] ?? '' ?>" required>
+                            <input type="text" id="nome-login" name="nome" placeholder="Usuário" required>
                         </div>
                         <button type="submit" class="ui fluid large teal submit button">
                             Acessar&nbsp&nbsp<i class="icon sign-in"></i>
@@ -206,7 +206,7 @@
                 <div class="ui label">
                     <h3>Assunto:</h3>
                 </div>
-                <input id="assunto-a1" type="text" name="assunto">
+                <input id="assunto-a1" class="ui input required" type="text" name="assunto" required>
             </div>
         </div>
         <div class="content">
@@ -214,11 +214,25 @@
             <br>
             <input id="ipt-cod-a1" name="cod" type="hidden">
             <input id="ipt-nomeUsuario-a1" name="nomeUsuario" type="hidden">
-            <div class="field">
-                <label>
-                    <h4>Descrição:</h4>
+            <div class="required field">
+                <label style="font-size: 1.3rem;">
+                    <strong>Descrição:</strong>
                 </label>
-                <textarea name="descricao" id="descricao-a1"></textarea>
+                <textarea name="descricao" id="descricao-a1" rows="2" required></textarea>
+            </div>
+            <div class="fields">
+                <div class="required eight wide field">
+                    <label>E-mail</label>
+                    <input id="iptEmailA1" type="email" name="email" placeholder="email@cosanpa.pa.gov.br" value="<?= $usuario['email'] ?? ''?>" required>
+                </div>
+                <div class="four wide field">
+                    <label>Setor</label>
+                    <input id="iptSetorA1" type="text" name="setor">
+                </div>
+                <div class="four wide field">
+                    <label>Ramal</label>
+                    <input id="iptRamalA1" type="text" name="ramal" maxlength="16">
+                </div>
             </div>
             <div class="ui info icon message">
                 <i class="close icon"></i>
@@ -254,7 +268,7 @@
         <div class="description">
             <div class="ui form">
                 <div class="ui fluid icon input">
-                    <input type="text" id="nome-usuario-a2" name="nome" placeholder="Usuário" value="<?= $_GET['usr'] ?? '' ?>" required>
+                    <input type="text" id="nome-usuario-a2" name="nome" placeholder="Usuário" required>
                     <i class="icon"></i>
                 </div>
             </div>
@@ -284,9 +298,23 @@
         <form id="form-modal-b1" method="POST" action="/novoChamado" class="ui form">
             <input id="ipt-cod-b1" name="cod" type="hidden">
             <input id="ipt-nomeUsuario-b1" name="nomeUsuario" type="hidden">
+            <div class="fields">
+                <div class="required eight wide field">
+                    <label>E-mail</label>
+                    <input id="iptEmailB1" type="email" name="email" placeholder="email@cosanpa.pa.gov.br" value="<?= $usuario['email'] ?? '' ?>" required>
+                </div>
+                <div class="four wide field">
+                    <label>Setor</label>
+                    <input id="iptSetorB1" type="text" name="setor">
+                </div>
+                <div class="four wide field">
+                    <label>Ramal</label>
+                    <input id="iptRamalB1" type="text" name="ramal" maxlength="16">
+                </div>
+            </div>
             <div class="field">
                 <label>Informações adicionais</label>
-                <textarea name="infoAdc" id="infoAdc-b1"></textarea>
+                <textarea name="infoAdc" id="infoAdc-b1" rows="2"></textarea>
             </div>
         </form>
         <div class="ui info icon message">
@@ -322,7 +350,7 @@
         <div class="description">
             <div class="ui form">
                 <div class="ui fluid icon input">
-                    <input type="text" id="nome-usuario-b2" name="nome" placeholder="Usuário" value="" required>
+                    <input type="text" id="nome-usuario-b2" name="nome" placeholder="Usuário" required>
                     <i class="icon"></i>
                 </div>
             </div>
@@ -341,28 +369,39 @@
 <script src="/js/index.js"></script>
 <script>
     $(document).ready(function() {
+        var sessao = <?= isset($_SESSION['user']) ? true : false ?> + '';
+
         $('#submit-formModal-a1').click(function() {
-            <?php if (isset($_SESSION['user'])) { ?>
-                // console.log('Chamado Criado');
-                $('#form-modal-a1').submit();
-            <?php } else { ?>
-                $('#modal-a2').modal({
-                    allowMultiple: true,
-                    transition: 'shake in',
-                }).modal('show');
-            <?php } ?>
+            var emailA1 = $('#iptEmailA1').val();
+            if (emailA1) {
+                if (sessao) {
+                    $('#form-modal-a1').submit();
+                } else {
+                    $('#modal-a2').modal({
+                        allowMultiple: true,
+                        transition: 'shake in',
+                    }).modal('show');
+                }
+            } else {
+                $('#form-modal-a1 .required').addClass('error');
+            }
         });
 
         $('#submit-formModal-b1').click(function() {
-            <?php if (isset($_SESSION['user'])) { ?>
-                // console.log('Chamado Criado');
-                $('#form-modal-b1').submit();
-            <?php } else { ?>
-                $('#modal-b2').modal({
-                    allowMultiple: true,
-                    transition: 'shake in',
-                }).modal('show');
-            <?php } ?>
+            var emailB1 = $('#iptEmailB1').val();
+            if (emailB1) {
+                if (sessao) {
+                    console.log('Chamado Criado');
+                    $('#form-modal-b1').submit();
+                } else {
+                    $('#modal-b2').modal({
+                        allowMultiple: true,
+                        transition: 'shake in',
+                    }).modal('show');
+                }
+            } else {
+                $('#form-modal-b1 .required').addClass('error');
+            }
         });
     });
 </script>

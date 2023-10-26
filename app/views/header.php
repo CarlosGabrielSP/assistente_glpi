@@ -27,7 +27,8 @@
 <body>
 
     <?php if ($notif = $_SESSION['notificacao'] ?? false) : ?>
-        <div id="notificacao" class="ui <?= $notif->status ?> message">
+        <div id="notificacao" class="ui <?= $notif->status ?> floating message">
+            <i class="large exclamation circle icon"></i>
             <i class="close icon"></i>
             <?= $notif->msg ?>
         </div>

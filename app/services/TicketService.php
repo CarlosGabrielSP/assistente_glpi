@@ -77,7 +77,8 @@ class TicketService
             'impact' => 3,
             'priority' => 3,
             'date_creation' => date('Y-m-d H:i:s'),
-            'date_mod' => date('Y-m-d H:i:s')
+            'date_mod' => date('Y-m-d H:i:s'),
+            'requesttypes_id' => 8 //Origem da requisiçao Id = 8 (Assistente de Abertura de Chamados)
         ];
 
         if (!$ticket = $this->repositorio->saveTicket($dados)) {

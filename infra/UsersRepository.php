@@ -27,7 +27,17 @@ class UsersRepository extends Repository
         return ($stm->fetchAll());
     }
 
-    public function autenticacao($ldapBaseDN, $pass) 
+    public function firstEmail(int $userId)
+    {
+        $qry = "SELECT email FROM glpi_useremails WHERE users_id = :id";
+        $stm = $this->PDOconexao->prepare($qry);
+        $stm->bindParam(':id', $userId);
+        $stm->setFetchMode(PDO::FETCH_ASSOC);
+        $stm->execute();
+        return $stm->fetch();
+    }
+
+    public function autenticacaoLDAP($ldapBaseDN, $pass) 
     {
         $ldapServer = '10.20.1.7';
 
