@@ -14,7 +14,7 @@ class UsersRepository extends Repository
         $stm->bindParam(':name', $name);
         $stm->setFetchMode(PDO::FETCH_ASSOC);
         $stm->execute();
-        return ($stm->fetch());
+        return $stm->fetch();
     }
 
     public function findByName2(string $name)
@@ -24,18 +24,40 @@ class UsersRepository extends Repository
         $stm->bindParam(':name', $name);
         $stm->setFetchMode(PDO::FETCH_ASSOC);
         $stm->execute([':name'=>$name.'%']);
-        return ($stm->fetchAll());
+        return $stm->fetchAll();
     }
 
-    public function firstEmail(int $userId)
+// Funções Email ========================================================================
+    public function firstEmail($userId)
     {
-        $qry = "SELECT email FROM glpi_useremails WHERE users_id = :id";
+        $qry = "SELECT * FROM glpi_useremails WHERE users_id = :id";
         $stm = $this->PDOconexao->prepare($qry);
         $stm->bindParam(':id', $userId);
         $stm->setFetchMode(PDO::FETCH_ASSOC);
         $stm->execute();
         return $stm->fetch();
     }
+
+    public function saveEmail(array $array_dados)
+    {
+        $colunas = implode(",", array_keys($array_dados));
+        $valores = implode("','", $array_dados);
+        $qry = "INSERT INTO glpi_useremails ({$colunas}) VALUES ('{$valores}')";
+        $stm = $this->PDOconexao->prepare($qry);
+        if($stm->execute()) return $array_dados['email'];
+        return false;
+    }
+
+    public function updateEmail(int $id, String $email)
+    {
+        $qry = "UPDATE glpi_useremails SET email = :email WHERE id = :id";
+        $stm = $this->PDOconexao->prepare($qry);
+        $stm->bindParam(':email', $email);
+        $stm->bindParam(':id', $id);
+        if($stm->execute()) return $email;
+        return false;
+    }
+// =======================================================================================
 
     public function autenticacaoLDAP($ldapBaseDN, $pass) 
     {

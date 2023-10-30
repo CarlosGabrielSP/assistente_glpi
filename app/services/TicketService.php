@@ -13,7 +13,7 @@ class TicketService
         $this->repositorio = new TicketsRepository;
     }
 
-    public function criarTicket($cod, $usuario, $info = '', $assunto = '', $descricao = '')
+    public function criarTicket($cod, $usuario, $info = '', $assunto = '', $descricao = '', $infoEmail = '')
     {
         switch ($cod) {
             case 1:
@@ -68,7 +68,7 @@ class TicketService
         if($info) $descricao .= "\n\nInformações Adicionais:\n" . $info;
 
         $dados = [
-            'entities_id' => 1, // Entidade SUPORTE id=1
+            'entities_id' => 1, // Entidade COSANPA->SUPORTE id=1
             'name' => $assunto,
             'date' => date('Y-m-d H:i:s'),
             'users_id_recipient' => $usuario['id'],
@@ -78,13 +78,15 @@ class TicketService
             'priority' => 3,
             'date_creation' => date('Y-m-d H:i:s'),
             'date_mod' => date('Y-m-d H:i:s'),
-            'requesttypes_id' => 8 //Origem da requisiçao Id = 8 (Assistente de Abertura de Chamados)
+            'requesttypes_id' => 8 //Origem da requisiçao id=8 (Assistente de Abertura de Chamados)
         ];
 
-        if (!$ticket = $this->repositorio->saveTicket($dados)) {
+        if ($this->repositorio->saveTicket($dados)) {
+            (new UserService)->userEmail($usuario['id'], $infoEmail);
+            return $this->repositorio->last();
+        } else {
             return false;
         }
-        return $this->repositorio->last();
     }
 
     public function buscaTodos()

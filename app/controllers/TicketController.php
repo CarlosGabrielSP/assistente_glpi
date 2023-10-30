@@ -24,21 +24,21 @@ class TicketController extends Controller
 
     public function abrirChamado()
     {
-        $nomeUsuario = htmlspecialchars($_POST['nomeUsuario'] ?? false);
-        $cod = htmlspecialchars($_POST['cod'] ?? '');
-        $assunto = htmlspecialchars($_POST['assunto'] ?? '');
-        $descricao = htmlspecialchars($_POST['descricao'] ?? '');
-        $infoAdc = htmlspecialchars($_POST['infoAdc'] ?? '');
-        $infoEmail = htmlspecialchars($_POST['email'] ?? '');
-        $infoSetor = htmlspecialchars($_POST['setor'] ?? '');
-        $infoRamal = htmlspecialchars($_POST['ramal'] ?? '');
+        $nomeUsuario    = htmlspecialchars($_POST['nomeUsuario'] ?? false);
+        $cod            = htmlspecialchars($_POST['cod'] ?? '');
+        $assunto        = htmlspecialchars($_POST['assunto'] ?? '');
+        $descricao      = htmlspecialchars($_POST['descricao'] ?? '');
+        $infoAdc        = htmlspecialchars($_POST['infoAdc'] ?? '');
+        $infoEmail      = htmlspecialchars($_POST['email'] ?? '');
+        $infoSetor      = htmlspecialchars($_POST['setor'] ?? '');
+        $infoRamal      = htmlspecialchars($_POST['ramal'] ?? '');
 
-        $infoAdc .= '\nE-mail: ' . $infoEmail . '\n' . 'Setor: ' . $infoSetor . '\n' . 'Ramal: ' . $infoRamal;
+        $infoAdc .= '\n\nE-mail: ' . $infoEmail . '\n' . 'Setor: ' . $infoSetor . '\n' . 'Ramal: ' . $infoRamal;
         
         if (!$usuario = $_SESSION['user'] ?? false) {
             if ($nomeUsuario) {
                 if (!$usuario = (new UserService)->buscaUsuario($nomeUsuario)) {
-                    Util::notificacao('error', "Usuário informado existe: {$nomeUsuario}. Entre em contato com a UEST no 3202-8551.");
+                    Util::notificacao('error', "Usuário informado não encontrado: {$nomeUsuario}. Entre em contato com a UEST no 3202-8551.");
                     Util::redireciona('/');
                 }
             } else {
@@ -46,11 +46,11 @@ class TicketController extends Controller
                 Util::redireciona('/');
             }
         }
-        $ticket = $this->ticketServico->criarTicket($cod, $usuario, $infoAdc, $assunto, $descricao);
+        $ticket = $this->ticketServico->criarTicket($cod, $usuario, $infoAdc, $assunto, $descricao, $infoEmail);
         if ($ticket) {
             Util::notificacao(
                 'success',
-                "Sua solicitação foi registrada. O <strong>ID</strong> do seu chamado é <strong>t_{$ticket['id']}</strong>. Para acompanhar o progresso, <a href='http://suporte.cosanpa.pa.gov.br:8080/front/ticket.form.php?id={$ticket['id']}'>Clique aqui!</a>");
+                "Sua solicitação foi registrada. O <strong>ID</strong> do seu chamado é <strong>t_{$ticket['id']}</strong>. Para acompanhar o progresso, <a target='_blank' href='http://suporte.cosanpa.pa.gov.br:8080/front/ticket.form.php?id={$ticket['id']}'>Clique aqui!</a>");
         } else {
             Util::notificacao('error', 'Que pena, seu chamado não foi aceito. Contate a UEST no 3202-8551 para esclarecimentos');
         }

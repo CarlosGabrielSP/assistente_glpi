@@ -218,7 +218,7 @@
                 <label style="font-size: 1.3rem;">
                     <strong>Descrição:</strong>
                 </label>
-                <textarea name="descricao" id="descricao-a1" rows="2" required></textarea>
+                <textarea name="descricao" id="descricao-a1" rows="3" required></textarea>
             </div>
             <div class="fields">
                 <div class="required eight wide field">
@@ -314,7 +314,7 @@
             </div>
             <div class="field">
                 <label>Informações adicionais</label>
-                <textarea name="infoAdc" id="infoAdc-b1" rows="2"></textarea>
+                <textarea name="infoAdc" id="infoAdc-b1" rows="3"></textarea>
             </div>
         </form>
         <div class="ui info icon message">
