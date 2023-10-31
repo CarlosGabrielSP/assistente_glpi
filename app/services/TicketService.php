@@ -81,12 +81,9 @@ class TicketService
             'requesttypes_id' => 8 //Origem da requisiçao id=8 (Assistente de Abertura de Chamados)
         ];
 
-        if ($this->repositorio->saveTicket($dados)) {
-            (new UserService)->userEmail($usuario['id'], $infoEmail);
-            return $this->repositorio->last();
-        } else {
-            return false;
-        }
+        (new UserService)->userEmail($usuario['id'], $infoEmail); //cadastra email do usuário
+        
+        return $this->repositorio->saveTicket($dados);
     }
 
     public function buscaTodos()
