@@ -13,12 +13,12 @@ class UserService
         $this->repositorio = new UsersRepository;
     }
 
-    public function login($login): array
+    public function login(String $login): bool
     {
         unset($_SESSION['user']);
 
         if (!$usuario = $this->repositorio->findByName($login)) {
-            return [0, "<strong>Usuário não encontrado!</strong> Verifique o usuário digitado ou ligue para o número 3202-8541/8551"];
+            return 0;
         }
         // $result = $this->repositorio->autenticacaoLDAP($usuario['user_dn'], $senha);
         // if (!$result) return [0, "A senha informada não confere. Para solicitar redefinição de senha <a href='#'>clique aqui</a> ", $usuario['name']];
@@ -30,20 +30,20 @@ class UserService
         $_SESSION['user']['realname'] = $usuario['realname'];
         $_SESSION['user']['email'] = $email['email'] ?? '';
 
-        return [1];
+        return 1;
     }
 
-    public function logoff()
+    public function logoff(): void
     {
         unset($_SESSION['user']);
     }
 
-    public function buscaUsuario($nome)
+    public function buscaUsuario(String $nome): mixed
     {
         return $this->repositorio->findByName($nome);
     }
 
-    public function userEmail($userId, $email) //Verifica, cadastra e atualiza o email do usuário
+    public function userEmail($userId, $email): array|false //Verifica, cadastra e atualiza o email do usuário
     {
         if(!$emailsXUsuario = $this->repositorio->firstEmail($userId)){ //Executa se usuario não possui email cadastrado
             $array_dados = [
