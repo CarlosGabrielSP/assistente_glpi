@@ -35,18 +35,20 @@ class TicketController extends Controller
 
         $infoAdc .= '\n\nE-mail: ' . $infoEmail . '\n' . 'Setor: ' . $infoSetor . '\n' . 'Ramal: ' . $infoRamal;
         
-        if (!$usuario = $_SESSION['user'] ?? false) {
+        if (!$usuario = $_SESSION['user']['name'] ?? false) { //Usuário não logado
             if ($nomeUsuario) {
-                if (!$usuario = (new UserService)->buscaUsuario($nomeUsuario)) {
+                if (!(new UserService)->buscaUsuario($nomeUsuario)) { //Confirma se usuário informado existe
                     Util::notificacao('error', "Usuário informado não encontrado: {$nomeUsuario}. Entre em contato com a UEST no 3202-8551.");
                     Util::redireciona('/');
                 }
+                $usuario = $nomeUsuario;
             } else {
                 Util::notificacao('error', 'Usuário não informado');
                 Util::redireciona('/');
             }
         }
-        $ticket = $this->ticketServico->criarTicket($cod, $usuario, $infoAdc, $assunto, $descricao, $infoEmail);
+
+        $ticket = $this->ticketServico->criarTicket($cod, $usuario, $infoAdc, $assunto, $descricao, $infoEmail, $infoRamal);
         if ($ticket) {
             Util::notificacao(
                 'success',

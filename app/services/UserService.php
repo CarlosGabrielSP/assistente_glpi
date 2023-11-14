@@ -18,19 +18,21 @@ class UserService
         unset($_SESSION['user']);
 
         if (!$usuario = $this->repositorio->findByName($login)) {
-            return 0;
+            return false;
         }
         // $result = $this->repositorio->autenticacaoLDAP($usuario['user_dn'], $senha);
         // if (!$result) return [0, "A senha informada não confere. Para solicitar redefinição de senha <a href='#'>clique aqui</a> ", $usuario['name']];
 
-        $email = ($this->repositorio->firstEmail($usuario['id']));
-        $_SESSION['user']['id'] = $usuario['id'];
-        $_SESSION['user']['name'] = $usuario['name'];
-        $_SESSION['user']['firstname'] = $usuario['firstname'];
-        $_SESSION['user']['realname'] = $usuario['realname'];
-        $_SESSION['user']['email'] = $email['email'] ?? '';
+        $email = ($this->repositorio->firstEmail($usuario->id)->email);
 
-        return 1;
+        $_SESSION['user']['id'] = $usuario->id;
+        $_SESSION['user']['name'] = $usuario->name;
+        $_SESSION['user']['firstname'] = $usuario->firstname;
+        $_SESSION['user']['realname'] = $usuario->realname;
+        $_SESSION['user']['phone'] = $usuario->phone ?? '';
+        $_SESSION['user']['email'] = $email ?? '';
+
+        return true;
     }
 
     public function logoff(): void
@@ -43,7 +45,16 @@ class UserService
         return $this->repositorio->findByName($nome);
     }
 
-    public function userEmail($userId, $email): array|false //Verifica, cadastra e atualiza o email do usuário
+    public function userPhone(int $id, String $phone): bool
+    {
+        if($this->repositorio->updatePhoneUsuario($id, $phone)){
+            $_SESSION['user']['phone'] = $phone;
+            return true;
+        }
+        return false;
+    }
+
+    public function userEmail(int $userId, String $email) //Verifica, cadastra e atualiza o email do usuário
     {
         if(!$emailsXUsuario = $this->repositorio->firstEmail($userId)){ //Executa se usuario não possui email cadastrado
             $array_dados = [
@@ -51,12 +62,12 @@ class UserService
                 'is_default'=> 1,
                 'email' => $email
             ];
-            if($novoEmail = $this->repositorio->saveEmail($array_dados)) $_SESSION['user']['email'] = $email; //atualiza o email do usuário na sessão
-            return $novoEmail;
+            if($resultado = $this->repositorio->saveEmail($array_dados)) $_SESSION['user']['email'] = $email; //atualiza o email do usuário na sessão
+            return $resultado;
         }
-        if($emailsXUsuario['email'] != $email){ //Executa se usuário informa email diferente do cadastrado
-            if($novoEmail = $this->repositorio->updateEmail($emailsXUsuario['id'], $email)) $_SESSION['user']['email'] = $email; //atualiza o email do usuário na sessão
-            return $novoEmail;
+        if($emailsXUsuario->email != $email){ //Executa se usuário informa email diferente do cadastrado
+            if($resultado = $this->repositorio->updateEmail($emailsXUsuario->id, $email)) $_SESSION['user']['email'] = $email; //atualiza o email do usuário na sessão
+            return $resultado;
         }
     }
 }

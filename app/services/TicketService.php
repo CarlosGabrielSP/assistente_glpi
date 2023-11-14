@@ -13,8 +13,11 @@ class TicketService
         $this->repositorio = new TicketsRepository;
     }
 
-    public function criarTicket($cod, $usuario, $info = '', $assunto = '', $descricao = '', $infoEmail = '')
+    public function criarTicket($cod, $usuario, $info = '', $assunto = '', $descricao = '', $infoEmail = '', $infoRamal = '')
     {
+        $userService = new UserService;
+        $user = $userService->buscaUsuario($usuario);
+
         switch ($cod) {
             case 1:
                 break;
@@ -76,7 +79,7 @@ class TicketService
             'entities_id' => 1, // Entidade COSANPA->SUPORTE id=1
             'name' => $assunto,
             'date' => date('Y-m-d H:i:s'),
-            'users_id_recipient' => $usuario['id'],
+            'users_id_recipient' => $user->id,
             'content' => $descricao,
             'urgency' => 3,
             'impact' => 3,
@@ -86,7 +89,8 @@ class TicketService
             'requesttypes_id' => 8 //Origem da requisiçao id=8 (Assistente de Abertura de Chamados)
         ];
 
-        (new UserService)->userEmail($usuario['id'], $infoEmail); //cadastra email do usuário
+        $userService->userEmail($user->id, $infoEmail); //cadastra email do usuário
+        $userService->userPhone($user->id, $infoRamal); //Atualiza ramal
 
         return $this->repositorio->saveTicket($dados);
     }

@@ -231,7 +231,7 @@
                 </div>
                 <div class="four wide field">
                     <label>Ramal</label>
-                    <input id="iptRamalA1" type="text" name="ramal" maxlength="16">
+                    <input id="iptRamalA1" type="text" name="ramal" maxlength="16" value="<?= $usuario['phone'] ?? ''?>">
                 </div>
             </div>
             <div class="ui info icon message">
@@ -309,7 +309,7 @@
                 </div>
                 <div class="four wide field">
                     <label>Ramal</label>
-                    <input id="iptRamalB1" type="text" name="ramal" maxlength="16">
+                    <input id="iptRamalB1" type="text" name="ramal" maxlength="16" value="<?= $usuario['phone'] ?? ''?>">
                 </div>
             </div>
             <div class="field">
