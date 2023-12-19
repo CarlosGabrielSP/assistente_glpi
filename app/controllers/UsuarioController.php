@@ -16,7 +16,8 @@ class UsuarioController extends Controller
 
     public function pesquisaUsuario()//Usado na pesquisa de usuário via AJAX 
     {
-        if($this->userServico->buscaUsuario($_POST['usuario'])) {
+        $usuario = filter_input(INPUT_POST, 'usuario', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        if($this->userServico->buscaUsuario($usuario)) {
             echo '1';
         } else {
             echo '0';

@@ -24,14 +24,14 @@ class TicketController extends Controller
 
     public function abrirChamado()
     {
-        $nomeUsuario    = htmlspecialchars($_POST['nomeUsuario'] ?? false);
-        $cod            = htmlspecialchars($_POST['cod'] ?? '');
-        $assunto        = htmlspecialchars($_POST['assunto'] ?? '');
-        $descricao      = htmlspecialchars($_POST['descricao'] ?? '');
-        $infoAdc        = htmlspecialchars($_POST['infoAdc'] ?? '');
-        $infoEmail      = htmlspecialchars($_POST['email'] ?? '');
-        $infoSetor      = htmlspecialchars($_POST['setor'] ?? '');
-        $infoRamal      = htmlspecialchars($_POST['ramal'] ?? '');
+        $nomeUsuario    = filter_input(INPUT_POST, 'nomeUsuario', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $cod            = filter_input(INPUT_POST, 'cod', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $assunto        = filter_input(INPUT_POST, 'assunto', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $descricao      = filter_input(INPUT_POST, 'descricao', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $infoAdc        = filter_input(INPUT_POST, 'infoAdc', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $infoEmail      = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+        $infoSetor      = filter_input(INPUT_POST, 'setor', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $infoRamal      = filter_input(INPUT_POST, 'ramal', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
         $infoAdc .= '\n\nE-mail: ' . $infoEmail . '\n' . 'Setor: ' . $infoSetor . '\n' . 'Ramal: ' . $infoRamal;
         

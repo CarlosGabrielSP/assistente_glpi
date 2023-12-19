@@ -10,7 +10,7 @@ class LoginController extends Controller
 {
     public function logar(): void
     {
-        $nome = htmlspecialchars($_POST['nome']);
+        $nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if(!(new UserService)->login($nome)) {
             Util::notificacao('error','<strong>Usuário não encontrado!</strong> Verifique o usuário digitado ou ligue para o número 3202-8541/8551');
         }
