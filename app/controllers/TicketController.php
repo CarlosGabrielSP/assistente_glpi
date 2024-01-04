@@ -10,6 +10,11 @@ class TicketController extends Controller
 {
     private TicketService $ticketServico;
 
+    public function __construct()
+    {
+        $this->ticketServico = new TicketService;
+    }
+
     public function listaChamados(): void
     {
         $lista = $this->ticketServico->buscaTodos();

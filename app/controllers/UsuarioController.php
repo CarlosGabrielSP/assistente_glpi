@@ -6,9 +6,11 @@ use Cosanpa\Src\Controller;
 
 class UsuarioController extends Controller
 {
-    private $userServico;
+    private UserService $userServico;
 
-    function __construct(private UserService $userService){}
+    function __construct(){
+        $this->userServico = new UserService;
+    }
 
     public function pesquisaUsuario()//Usado na pesquisa de usuário via AJAX 
     {
