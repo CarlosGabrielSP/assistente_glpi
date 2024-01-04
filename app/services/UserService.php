@@ -1,12 +1,11 @@
 <?php
+namespace Cosanpa\App\services;
 
-namespace App\services;
-
-use Cosanpa\PortalGlpi\Infra\UsersRepository;
+use Cosanpa\Infra\UsersRepository;
 
 class UserService
 {
-    private $repositorio;
+    private UsersRepository $repositorio;
 
     function __construct()
     {

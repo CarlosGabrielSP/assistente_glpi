@@ -9,25 +9,22 @@ class ComposerStaticInit0b27b577554a1844c55a4959890fc9fd
     public static $prefixLengthsPsr4 = array (
         'C' => 
         array (
-            'Cosanpa\\PortalGlpi\\Infra\\' => 25,
-            'Cosanpa\\PortalGlpi\\' => 19,
-        ),
-        'A' => 
-        array (
-            'App\\' => 4,
+            'Cosanpa\\Src\\' => 12,
+            'Cosanpa\\Infra\\' => 14,
+            'Cosanpa\\App\\' => 12,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Cosanpa\\PortalGlpi\\Infra\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/infra',
-        ),
-        'Cosanpa\\PortalGlpi\\' => 
+        'Cosanpa\\Src\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),
-        'App\\' => 
+        'Cosanpa\\Infra\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/infra',
+        ),
+        'Cosanpa\\App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',
         ),

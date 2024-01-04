@@ -1,8 +1,7 @@
 <?php
+namespace Cosanpa\Infra;
 
-namespace Cosanpa\PortalGlpi\Infra;
-
-use Cosanpa\PortalGlpi\Repository;
+use Cosanpa\Src\Repository;
 
 class TicketsRepository extends Repository
 {

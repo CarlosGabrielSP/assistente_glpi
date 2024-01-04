@@ -1,24 +1,27 @@
 <?php
+namespace Cosanpa\App\controllers;
 
-namespace App\controllers;
-
-use Cosanpa\PortalGlpi\Controller;
+use Cosanpa\Src\Controller;
 
 class AppController extends Controller
 {
-    public function teste(){
+    public function teste(): void
+    {
         $this->view("teste");
     }
 
-    public function index(){
+    public function index(): void
+    {
         $this->view("index");
     }
 
-    public function erro404(){
+    public function erro404(): void
+    {
         $this->view('404');
     }
 
-    public function manual(){
+    public function manual(): void
+    {
         $this->view('manual');
     }
 

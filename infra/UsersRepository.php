@@ -1,9 +1,7 @@
 <?php
+namespace Cosanpa\Infra;
 
-namespace Cosanpa\PortalGlpi\Infra;
-
-use PDO;
-use Cosanpa\PortalGlpi\Repository;
+use Cosanpa\Src\Repository;
 
 class UsersRepository extends Repository
 {
@@ -12,7 +10,7 @@ class UsersRepository extends Repository
         $qry = "SELECT id,name,firstname,realname,phone,user_dn FROM {$this->tabela} WHERE name = :name";
         $stm = $this->PDOconexao->prepare($qry);
         $stm->bindParam(':name', $name);
-        $stm->setFetchMode(PDO::FETCH_CLASS, 'stdClass');
+        $stm->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
         $stm->execute();
         return $stm->fetch();
     }
@@ -22,7 +20,7 @@ class UsersRepository extends Repository
         $qry = "SELECT name FROM {$this->tabela} WHERE name LIKE :name";
         $stm = $this->PDOconexao->prepare($qry);
         $stm->bindParam(':name', $name);
-        $stm->setFetchMode(PDO::FETCH_ASSOC);
+        $stm->setFetchMode(\PDO::FETCH_ASSOC);
         $stm->execute([':name' => $name . '%']);
         return $stm->fetchAll();
     }
@@ -33,7 +31,7 @@ class UsersRepository extends Repository
         $qry = "SELECT * FROM glpi_useremails WHERE users_id = :id";
         $stm = $this->PDOconexao->prepare($qry);
         $stm->bindParam(':id', $userId);
-        $stm->setFetchMode(PDO::FETCH_CLASS, 'stdClass');
+        $stm->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
         $stm->execute();
         return $stm->fetch();
     }

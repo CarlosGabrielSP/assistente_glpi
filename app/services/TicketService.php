@@ -1,8 +1,8 @@
 <?php
+namespace Cosanpa\App\services;
 
-namespace App\services;
-
-use Cosanpa\PortalGlpi\Infra\TicketsRepository;
+use Cosanpa\App\services\UserService;
+use Cosanpa\Infra\TicketsRepository;
 
 class TicketService
 {

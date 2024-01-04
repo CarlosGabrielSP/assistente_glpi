@@ -1,6 +1,5 @@
 <?php 
-
-namespace Cosanpa\PortalGlpi;
+namespace Cosanpa\Src;
 
 class Util
 {

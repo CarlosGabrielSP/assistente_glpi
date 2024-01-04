@@ -1,28 +1,22 @@
 <?php
+namespace Cosanpa\App\controllers;
 
-namespace App\controllers;
-
-use App\services\TicketService;
-use App\services\UserService;
-use Cosanpa\PortalGlpi\Util;
-use Cosanpa\PortalGlpi\Controller;
+use Cosanpa\App\services\TicketService;
+use Cosanpa\App\services\UserService;
+use Cosanpa\Src\Controller;
+use Cosanpa\Src\Util;
 
 class TicketController extends Controller
 {
-    private $ticketServico;
+    private TicketService $ticketServico;
 
-    function __construct()
-    {
-        $this->ticketServico = new TicketService;
-    }
-
-    public function listaChamados()
+    public function listaChamados(): void
     {
         $lista = $this->ticketServico->buscaTodos();
         $this->view('tickets/lista', ['lista' => $lista]);
     }
 
-    public function abrirChamado()
+    public function abrirChamado(): void
     {
         $nomeUsuario    = filter_input(INPUT_POST, 'nomeUsuario', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $cod            = filter_input(INPUT_POST, 'cod', FILTER_SANITIZE_FULL_SPECIAL_CHARS);

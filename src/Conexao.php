@@ -1,6 +1,5 @@
 <?php
-
-namespace Cosanpa\PortalGlpi;
+namespace Cosanpa\Src;
 
 use PDO;
 
@@ -8,14 +7,17 @@ class Conexao
 {
     private static $PDOconexao;
     private function __construct(){}
+    
+    public static function getConexao(){
+        $data = file_get_contents(__DIR__ . "/../config/confdb.json");
+        $db = json_decode($data);
 
-    public static function getConexao() {
         try {
-            if (!isset(self::$PDOconexao)) {
+            if (!isset(self::$PDOconexao)){
                 self::$PDOconexao = new PDO(
-                    "mysql:host=10.20.100.3; dbname=glpi10",
-                    "glpi10",
-                    "C0s-np#23",
+                    "{$db->mysql->host}; {$db->mysql->dbname}",
+                    $db->mysql->user,
+                    $db->mysql->pass,
                     [
                         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                         PDO::ATTR_CASE => PDO::CASE_NATURAL,
@@ -23,7 +25,7 @@ class Conexao
                     ]
                 );
             }
-        } catch (\PDOException $p) {
+        } catch (\PDOException $p){
             die("Falha na conexão com o Banco de Dados: " . $p->getMessage());
         }
         return self::$PDOconexao;

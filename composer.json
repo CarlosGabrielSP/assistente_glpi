@@ -1,16 +1,17 @@
 {
-    "name": "carlosgabriel/portal_glpi",
-    "description": "Uma pequena aplicação que servirá como portal de acesso às funcionalidades do sistema GLPI",
+    "name": "carlosgabriel/assistente_glpi",
+    "description": "Interface para abertura de Chamados no GLPI",
     "autoload": {
         "psr-4": {
-            "App\\": "app",
-            "Cosanpa\\PortalGlpi\\": "src",
-            "Cosanpa\\PortalGlpi\\Infra\\": "infra"
+            "Cosanpa\\App\\": "app",
+            "Cosanpa\\Src\\": "src",
+            "Cosanpa\\Infra\\": "infra"
         }
     },
     "authors": [
         {
-            "name": "Carlos Gabriel da Silva Pereira"
+            "name": "Carlos Gabriel da Silva Pereira",
+            "email": "carlos.gabriel@cosanpa.pa.gov.br"
         }
     ],
     "require": {}

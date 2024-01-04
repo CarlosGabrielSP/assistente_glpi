@@ -1,8 +1,7 @@
 <?php
+namespace Cosanpa\Src;
 
-namespace Cosanpa\PortalGlpi;
-
-class Controller
+abstract class Controller
 {
     public function view(String $view = null, array $dados = [])
     {

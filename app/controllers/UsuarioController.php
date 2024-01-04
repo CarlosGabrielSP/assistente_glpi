@@ -1,18 +1,14 @@
 <?php
+namespace Cosanpa\App\controllers;
 
-namespace App\controllers;
-
-use App\services\UserService;
-use Cosanpa\PortalGlpi\Controller;
+use Cosanpa\App\services\UserService;
+use Cosanpa\Src\Controller;
 
 class UsuarioController extends Controller
 {
     private $userServico;
 
-    function __construct()
-    {
-        $this->userServico = new UserService;
-    }
+    function __construct(private UserService $userService){}
 
     public function pesquisaUsuario()//Usado na pesquisa de usuário via AJAX 
     {
