@@ -1,16 +1,17 @@
 <?php
 namespace Cosanpa\Infra;
 
+use Cosanpa\App\models\User;
 use Cosanpa\Src\Repository;
 
 class UsersRepository extends Repository
 {
     public function findByName(string $name)
     {
-        $qry = "SELECT id,name,firstname,realname,phone,user_dn FROM {$this->tabela} WHERE name = :name";
+        $qry = "SELECT id,name,phone,realname,firstname,user_dn FROM {$this->tabela} WHERE name = :name";
         $stm = $this->PDOconexao->prepare($qry);
         $stm->bindParam(':name', $name);
-        $stm->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
+        $stm->setFetchMode(\PDO::FETCH_CLASS, \Cosanpa\App\models\User::class);
         $stm->execute();
         return $stm->fetch();
     }
@@ -20,9 +21,8 @@ class UsersRepository extends Repository
         $qry = "SELECT name FROM {$this->tabela} WHERE name LIKE :name";
         $stm = $this->PDOconexao->prepare($qry);
         $stm->bindParam(':name', $name);
-        $stm->setFetchMode(\PDO::FETCH_ASSOC);
         $stm->execute([':name' => $name . '%']);
-        return $stm->fetchAll();
+        return $stm->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     // Funções Email ========================================================================
@@ -31,9 +31,8 @@ class UsersRepository extends Repository
         $qry = "SELECT * FROM glpi_useremails WHERE users_id = :id";
         $stm = $this->PDOconexao->prepare($qry);
         $stm->bindParam(':id', $userId);
-        $stm->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
         $stm->execute();
-        return $stm->fetch();
+        return $stm->fetch(\PDO::FETCH_OBJ);
     }
 
     public function saveEmail(array $array_dados): bool
@@ -54,15 +53,15 @@ class UsersRepository extends Repository
         return $stm->execute();
     }
     // Phone ==================================================================================
-    public function updatePhoneUsuario(int $idUsuario, String $phone): bool
+    public function updatePhoneUsuario(User $user, String $phone): bool
     {
+        $id = $user->id;
         $qry = "UPDATE {$this->tabela} SET phone = :phone WHERE id = :id";
         $stm = $this->PDOconexao->prepare($qry);
         $stm->bindParam(':phone', $phone);
-        $stm->bindParam(':id', $idUsuario);
+        $stm->bindParam(':id', $id);
         return $stm->execute();
     }
-
     // =======================================================================================
 
     public function autenticacaoLDAP($ldapBaseDN, $pass)

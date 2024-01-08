@@ -1,6 +1,7 @@
 <?php
 namespace Cosanpa\App\services;
 
+use Cosanpa\App\models\User;
 use Cosanpa\Infra\UsersRepository;
 
 class UserService
@@ -44,9 +45,10 @@ class UserService
         return $this->repositorio->findByName($nome);
     }
 
-    public function userPhone(int $id, String $phone): bool
+    public function userPhone(User $user, String $phone): bool
     {
-        if($this->repositorio->updatePhoneUsuario($id, $phone)){
+        if($this->repositorio->updatePhoneUsuario($user, $phone)){
+            $user->phone = $phone;
             $_SESSION['user']['phone'] = $phone;
             return true;
         }
