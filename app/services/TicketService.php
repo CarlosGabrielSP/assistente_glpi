@@ -90,7 +90,7 @@ class TicketService
         ];
 
         $userService->userEmail($user->id, $infoEmail); //cadastra email do usuário
-        $userService->userPhone($user->id, $infoRamal); //Atualiza ramal
+        $userService->userPhone($user, $infoRamal); //Atualiza ramal
 
         return $this->repositorio->saveTicket($dados);
     }

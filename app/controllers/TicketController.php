@@ -15,12 +15,6 @@ class TicketController extends Controller
         $this->ticketServico = new TicketService;
     }
 
-    public function listaChamados(): void
-    {
-        $lista = $this->ticketServico->buscaTodos();
-        $this->view('tickets/lista', ['lista' => $lista]);
-    }
-
     public function abrirChamado(): void
     {
         $nomeUsuario    = filter_input(INPUT_POST, 'nomeUsuario', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -58,4 +52,10 @@ class TicketController extends Controller
 
         Util::redireciona('/');
     }
+
+    // public function listaChamados(): void
+    // {
+    //     $lista = $this->ticketServico->buscaTodos();
+    //     $this->view('tickets/lista', ['lista' => $lista]);
+    // }
 }

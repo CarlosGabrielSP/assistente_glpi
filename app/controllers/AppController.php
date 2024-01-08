@@ -5,11 +5,6 @@ use Cosanpa\Src\Controller;
 
 class AppController extends Controller
 {
-    public function teste(): void
-    {
-        $this->view("teste");
-    }
-
     public function index(): void
     {
         $this->view("index");
