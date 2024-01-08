@@ -20,6 +20,15 @@ input::placeholder {
     color: #333 !important;
 }
 
+.box-main-geral {
+    padding: 50px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    opacity: 1;
+}
+
 .box-main-home {
     border-radius: 20px;
     height: 80vh;

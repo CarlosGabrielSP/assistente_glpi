@@ -2,7 +2,7 @@
 // APP #################################################################################################
 $rotas['/teste'] = [
     'GET' => [
-        'controller' => Cosanpa\App\controllers\AppController::class,
+        'controller' => Cosanpa\App\controllers\TesteController::class,
         'action' => 'teste'
     ]
 ];
@@ -14,7 +14,7 @@ $rotas['/'] = [
     ]
 ];
 
-$rotas['/error404'] = [
+$rotas['/404'] = [
     'GET' => [
         'controller' => Cosanpa\App\controllers\AppController::class,
         'action' => 'erro404'

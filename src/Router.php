@@ -11,7 +11,7 @@ class Router
     protected function getInfoRota($rota, $method): array
     {
         if (!isset($this->rotas[$rota][$method])){
-            Util::redireciona('/error404');
+            Util::redireciona('/404');
             exit();
         }
         return $this->rotas[$rota][$method];
@@ -28,6 +28,6 @@ class Router
         $infoRota = $this->getInfoRota($rota_acessada, $method);
         $controller = new $infoRota['controller'];
         $action = $infoRota['action'];
-        $controller->$action(3);
+        $controller->$action();
     }
 }
