@@ -22,16 +22,12 @@ class UserService
         }
         // $result = $this->repositorio->autenticacaoLDAP($usuario['user_dn'], $senha);
         // if (!$result) return [0, "A senha informada não confere. Para solicitar redefinição de senha <a href='#'>clique aqui</a> ", $usuario['name']];
-
-        $email = ($this->repositorio->firstEmail($usuario->id)->email);
-
         $_SESSION['user']['id'] = $usuario->id;
         $_SESSION['user']['name'] = $usuario->name;
         $_SESSION['user']['firstname'] = $usuario->firstname;
         $_SESSION['user']['realname'] = $usuario->realname;
         $_SESSION['user']['phone'] = $usuario->phone ?? '';
-        $_SESSION['user']['email'] = $email ?? '';
-
+        $_SESSION['user']['email'] = $usuario->email ?? '';
         return true;
     }
 
@@ -45,30 +41,28 @@ class UserService
         return $this->repositorio->findByName($nome);
     }
 
-    public function userPhone(User $user, String $phone): bool
+    public function verificaPhoneUsuario(User $user, String $phone): bool
     {
         if($this->repositorio->updatePhoneUsuario($user, $phone)){
-            $user->phone = $phone;
             $_SESSION['user']['phone'] = $phone;
             return true;
         }
         return false;
     }
 
-    public function userEmail(int $userId, String $email) //Verifica, cadastra e atualiza o email do usuário
+    public function verificaEmailUsuario(User $user, String $email): bool //Verifica, cadastra ou atualiza o email do usuário
     {
-        if(!$emailsXUsuario = $this->repositorio->firstEmail($userId)){ //Executa se usuario não possui email cadastrado
-            $array_dados = [
-                'users_id'  => $userId,
-                'is_default'=> 1,
-                'email' => $email
-            ];
-            if($resultado = $this->repositorio->saveEmail($array_dados)) $_SESSION['user']['email'] = $email; //atualiza o email do usuário na sessão
+        if(!$user->email){ //Confere se o usuário possui email cadastrado
+            if($resultado = $this->repositorio->saveDefaultEmail($user, $email)){ //Cadastra um email para o usuário
+                $_SESSION['user']['email'] = $email; //Atualiza a SESSION 
+            }
             return $resultado;
         }
-        if($emailsXUsuario->email != $email){ //Executa se usuário informa email diferente do cadastrado
-            if($resultado = $this->repositorio->updateEmail($emailsXUsuario->id, $email)) $_SESSION['user']['email'] = $email; //atualiza o email do usuário na sessão
-            return $resultado;
+        if($user->email != $email){ //Confere se o email o usuário é diferente do email informado
+            if($this->repositorio->updateDefaultEmail($user, $email)){
+                $_SESSION['user']['email'] = $email; //atualiza o email do usuário na sessão
+            }
         }
+        return true;
     }
 }

@@ -8,10 +8,26 @@ class UsersRepository extends Repository
 {
     public function findByName(string $name)
     {
-        $qry = "SELECT id,name,phone,realname,firstname,user_dn FROM {$this->tabela} WHERE name = :name";
+        $qry = "SELECT
+                    U.id,
+                    U.name,
+                    U.phone,
+                    U.realname,
+                    U.firstname,
+                    U.user_dn,
+                    E.email
+                FROM
+                    glpi_users as U
+                LEFT JOIN
+                    glpi_useremails as E
+                ON
+                    U.id = E.users_id AND E.is_default = 1
+                WHERE
+                    U.name = :name";
+
         $stm = $this->PDOconexao->prepare($qry);
         $stm->bindParam(':name', $name);
-        $stm->setFetchMode(\PDO::FETCH_CLASS, \Cosanpa\App\models\User::class);
+        $stm->setFetchMode(\PDO::FETCH_CLASS, User::class);
         $stm->execute();
         return $stm->fetch();
     }
@@ -26,30 +42,31 @@ class UsersRepository extends Repository
     }
 
     // Funções Email ========================================================================
-    public function firstEmail($userId)
-    {
-        $qry = "SELECT * FROM glpi_useremails WHERE users_id = :id";
-        $stm = $this->PDOconexao->prepare($qry);
-        $stm->bindParam(':id', $userId);
-        $stm->execute();
-        return $stm->fetch(\PDO::FETCH_OBJ);
-    }
+    // public function userXEmail(User $user)
+    // {
+    //     $userId = $user->id;
+    //     $qry = "SELECT * FROM glpi_useremails WHERE users_id = :id ";
+    //     $stm = $this->PDOconexao->prepare($qry);
+    //     $stm->bindParam(':id', $userId);
+    //     $stm->execute();
+    //     return $stm->fetch(\PDO::FETCH_OBJ);
+    // }
 
-    public function saveEmail(array $array_dados): bool
+    public function saveDefaultEmail(User $user, String $email): bool
     {
-        $colunas = implode(",", array_keys($array_dados));
-        $valores = implode("','", $array_dados);
-        $qry = "INSERT INTO glpi_useremails ({$colunas}) VALUES ('{$valores}')";
+        $userId = $user->id;
+        $qry = "INSERT INTO glpi_useremails (users_id, is_default, email) VALUES ($userId,1,'$email')";
         $stm = $this->PDOconexao->prepare($qry);
         return $stm->execute();
     }
 
-    public function updateEmail(int $id, String $email): bool
+    public function updateDefaultEmail(User $user, String $email): bool
     {
-        $qry = "UPDATE glpi_useremails SET email = :email WHERE id = :id";
+        $userId = $user->id;
+        $qry = "UPDATE glpi_useremails SET email = :email WHERE users_id = :id AND is_default = 1";
         $stm = $this->PDOconexao->prepare($qry);
         $stm->bindParam(':email', $email);
-        $stm->bindParam(':id', $id);
+        $stm->bindParam(':id', $userId);
         return $stm->execute();
     }
     // Phone ==================================================================================
@@ -64,17 +81,17 @@ class UsersRepository extends Repository
     }
     // =======================================================================================
 
-    public function autenticacaoLDAP($ldapBaseDN, $pass)
-    {
-        $ldapServer = '10.20.1.7';
+    // public function autenticacaoLDAP($ldapBaseDN, $pass)
+    // {
+    //     $ldapServer = '10.20.1.7';
 
-        $ldapConn = ldap_connect($ldapServer) or die("ERRO");
-        ldap_set_option($ldapConn, LDAP_OPT_PROTOCOL_VERSION, 3);
-        ldap_set_option($ldapConn, LDAP_OPT_REFERRALS, 0);
+    //     $ldapConn = ldap_connect($ldapServer) or die("ERRO");
+    //     ldap_set_option($ldapConn, LDAP_OPT_PROTOCOL_VERSION, 3);
+    //     ldap_set_option($ldapConn, LDAP_OPT_REFERRALS, 0);
 
-        $ldapBind = ldap_bind($ldapConn, $ldapBaseDN, $pass);
-        ldap_close($ldapConn);
+    //     $ldapBind = ldap_bind($ldapConn, $ldapBaseDN, $pass);
+    //     ldap_close($ldapConn);
 
-        return $ldapBind;
-    }
+    //     return $ldapBind;
+    // }
 }

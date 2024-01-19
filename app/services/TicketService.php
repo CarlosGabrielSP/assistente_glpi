@@ -89,9 +89,10 @@ class TicketService
             'requesttypes_id' => 8 //Origem da requisiçao id=8 (Assistente de Abertura de Chamados)
         ];
 
-        $userService->userEmail($user->id, $infoEmail); //cadastra email do usuário
-        $userService->userPhone($user, $infoRamal); //Atualiza ramal
-
+        $userService->verificaPhoneUsuario($user, $infoRamal); //Atualiza ramal
+        if(!$userService->verificaEmailUsuario($user, $infoEmail)){ //cadastra email do usuário)
+            return false;
+        }
         return $this->repositorio->saveTicket($dados);
     }
 

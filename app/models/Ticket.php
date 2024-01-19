@@ -1,6 +1,6 @@
 <?php
 
-namespace App\models;
+namespace Cosanpa\App\models;
 
 class Ticket
 {
