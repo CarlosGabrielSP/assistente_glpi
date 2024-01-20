@@ -32,12 +32,10 @@ class TicketController extends Controller
             if ($nomeUsuario) {
                 if (!(new UserService)->buscaUsuario($nomeUsuario)) { //Confirma se usuário informado existe
                     Util::notificacao('error', "Usuário informado não encontrado: {$nomeUsuario}. Entre em contato com a UEST no 3202-8551.");
-                    Util::redireciona('/');
                 }
                 $usuario = $nomeUsuario;
             } else {
                 Util::notificacao('error', 'Usuário não informado');
-                Util::redireciona('/');
             }
         }
 
@@ -49,7 +47,6 @@ class TicketController extends Controller
         } else {
             Util::notificacao('error', 'Que pena, seu chamado não foi aceito. Contate a UEST no 3202-8551 para esclarecimentos');
         }
-
         Util::redireciona('/');
     }
 

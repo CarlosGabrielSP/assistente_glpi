@@ -7,17 +7,17 @@ class AppController extends Controller
 {
     public function index(): void
     {
-        $this->view("index");
+        $this->renderView("index");
     }
 
     public function erro404(): void
     {
-        $this->view('404');
+        $this->renderView('404');
     }
 
     public function manual(): void
     {
-        $this->view('manual');
+        $this->renderView('manual');
     }
 
 }
