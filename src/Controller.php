@@ -3,14 +3,14 @@ namespace Cosanpa\Src;
 
 abstract class Controller
 {
-    public function renderView(String $view = null, array $dados = []): void    
+    use \Cosanpa\Src\Template;
+    public function downloadPDF(string $file)
     {
-        extract($dados);
-        //inicializa o buffer de saída
-        ob_start();
-        require __DIR__ . "/../app/views/" . $view . ".tpl.php";
-        $view = ob_get_contents(); //captura o conteúdo do buffer
-        ob_clean(); //limpa o buffer
-        echo $view;
+        $path = "../public/file/$file.pdf";
+        header('Content-type: application/pdf');
+        header('Content-Disposition: inline; filename="'.$file.'.pdf"');
+        header('Content-Transfer-Encoding: binary');
+        header('Content-Length: '.filesize($path));
+        readfile($path);
     }
 }

@@ -8,3 +8,5 @@ session_start();
 $rotas = require_once __DIR__ . "/../config/rotas.php";
 $router = new Router($rotas);
 $router->handler();
+
+unset($_SESSION['notificacao']);

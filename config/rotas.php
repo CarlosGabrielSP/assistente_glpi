@@ -1,11 +1,11 @@
 <?php
 // APP #################################################################################################
-$rotas['/teste'] = [
-    'GET' => [
-        'controller' => Cosanpa\App\controllers\TesteController::class,
-        'action' => 'teste'
-    ]
-];
+// $rotas['/teste'] = [
+//     'GET' => [
+//         'controller' => Cosanpa\App\controllers\TesteController::class,
+//         'action' => 'teste'
+//     ]
+// ];
 
 $rotas['/'] = [
     'GET' => [

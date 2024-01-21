@@ -1,1 +1,3 @@
-src/Conexao.php
+app/controllers/TesteController.php
+app/views/teste.twig
+config/confdb.json

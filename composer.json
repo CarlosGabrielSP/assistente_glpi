@@ -14,5 +14,7 @@
             "email": "carlos.gabriel@cosanpa.pa.gov.br"
         }
     ],
-    "require": {}
+    "require": {
+        "twig/twig": "^3.8"
+    }
 }
