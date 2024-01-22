@@ -1,33 +1,46 @@
 <?php
 namespace Cosanpa\Src;
 
+use Laminas\Diactoros\ServerRequestFactory;
+
 class Router
 {
-    /*Array que receberá todas as rotas com suas respectivas informações, Controller e Action.
-    Exemplo: ['/users'] => ['controller' => 'UserController', 'action' => 'users']*/
     function __construct(private array $rotas){}
 
-    /*Função recupera a rota informada, se existir*/
-    protected function getInfoRota($rota, $method): array
+    public function run(): void
     {
-        if (!isset($this->rotas[$rota][$method])){
-            Util::redireciona('/404');
-            exit();
+        $request = ServerRequestFactory::fromGlobals();
+
+        $uri = $request->getUri()->getPath();
+        $method = $request->getMethod();
+        $infoRota = $this->validaRota($uri, $method);
+        
+        $action = $infoRota['action'];
+        $controller = new $infoRota['controller']($action);
+
+        $response = $controller->handle($request);
+
+        foreach ($response->getHeaders() as $name => $values) {
+            foreach ($values as $value) {
+                header(sprintf('%s: %s', $name, $value), false);
+            }
         }
-        return $this->rotas[$rota][$method];
+
+        http_response_code($response->getStatusCode());
+        echo $response->getBody();
     }
 
-    public function handler(): void
+    public function validaRota($uri, $method): array
     {
-        $rota_acessada = explode("?", $_SERVER["REQUEST_URI"]);
-        if (is_array($rota_acessada)){
-            $rota_acessada = $rota_acessada[0];
+        if (!isset($this->rotas[$uri][$method])){
+            return $this->rotas['/404']['GET'];
         }
-        $method = $_SERVER['REQUEST_METHOD'];
-        if (strlen($rota_acessada) > 1) $rota_acessada = rtrim($rota_acessada, '/');
-        $infoRota = $this->getInfoRota($rota_acessada, $method);
-        $controller = new $infoRota['controller'];
-        $action = $infoRota['action'];
-        $controller->$action();
+        if (isset($this->rotas[$uri][$method]['auth'])){
+            if (!$_SESSION['user']['name'] ?? false){
+                Util::notificacao('error', 'Usuário não informado');
+                return $this->rotas['/404']['GET'];
+            }
+        }
+        return $this->rotas[$uri][$method];
     }
 }

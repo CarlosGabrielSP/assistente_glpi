@@ -1,12 +1,5 @@
 <?php
 // APP #################################################################################################
-// $rotas['/teste'] = [
-//     'GET' => [
-//         'controller' => Cosanpa\App\controllers\TesteController::class,
-//         'action' => 'teste'
-//     ]
-// ];
-
 $rotas['/'] = [
     'GET' => [
         'controller' => Cosanpa\App\controllers\AppController::class,
@@ -39,7 +32,8 @@ $rotas['/login'] = [
 $rotas['/logoff'] = [
     'GET' => [
         'controller' => Cosanpa\App\controllers\LoginController::class,
-        'action' => 'deslogar'
+        'action' => 'deslogar',
+        'auth' => true
     ],
 ];
 
@@ -51,7 +45,8 @@ $rotas['/novoChamado'] = [
     // ],
     'POST' => [
         'controller' => Cosanpa\App\controllers\TicketController::class,
-        'action' => 'abrirChamado'
+        'action' => 'abrirChamado',
+        'auth' => true
     ]
 ];
 

@@ -1,12 +1,13 @@
 <?php 
 namespace Cosanpa\Src;
 
-use PDO;
+use Cosanpa\Infra\database\DBConexaoMysql;
 use ReflectionClass;
+use PDO;
 
 abstract class Repository
 {
-    protected $PDOconexao;
+    protected readonly PDO $PDOconexao;
     protected $tabela;
 
     function __construct()
@@ -14,7 +15,7 @@ abstract class Repository
         $ref = new ReflectionClass($this);
         $nomeClasse = $ref->getShortName();
         $this->tabela = 'glpi_'.strtolower(str_replace('Repository','',$nomeClasse)); //O nome do Repository-filho deve iniciar com o nome da respectiva tabela no Banco
-        $this->PDOconexao = Conexao::getConexao();
+        $this->PDOconexao = (new DBConexaoMysql)->DBConexao();
     }
 
     protected function getConexao()

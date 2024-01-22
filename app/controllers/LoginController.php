@@ -1,24 +1,25 @@
 <?php 
 namespace Cosanpa\App\controllers;
 
+use Psr\Http\Message\ServerRequestInterface;
 use Cosanpa\App\services\UserService;
 use Cosanpa\Src\Controller;
 use Cosanpa\Src\Util;
 
 class LoginController extends Controller
 {
-    public function logar(): void
+    public function logar(ServerRequestInterface $request): array
     {
-        $nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if(!(new UserService)->login($nome)){
+        $params = filter_var_array($request->getParsedBody(),FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        if(!(new UserService())->login($params['nome'])){
             Util::notificacao('error','<strong>Usuário não encontrado!</strong> Verifique o usuário digitado ou ligue para o número 3202-8541/8551');
         }
-        Util::redireciona('/');
+        return Util::redireciona('/');
     }
 
-    public function deslogar(): void
+    public function deslogar(): array
     {
         (new UserService)->logoff();
-        Util::redireciona('/');
+        return Util::redireciona('/');
     }
 }

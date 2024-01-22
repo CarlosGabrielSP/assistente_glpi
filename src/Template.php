@@ -8,13 +8,13 @@ trait Template
 {
     const TEMPLATE_PATH = __DIR__.'/../app/views/';
 
-    public function renderView(String $view, array $dados = []): void
+    public function renderView(String $view, array $dados = []): string
     {
         $view = $view.'.twig';
         $loader = new FilesystemLoader(self::TEMPLATE_PATH);
         $twig = new Environment($loader);
         $twig->addGlobal('session', $_SESSION);
         
-        echo $twig->render($view,$dados);
+        return $twig->render($view,$dados);
     }
 }

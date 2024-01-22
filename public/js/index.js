@@ -15,7 +15,7 @@ $(document).ready(function () {
             transition: 'horizontal flip',
         }).modal('hide');
     });
-
+    
     $('#nome-usuario-a2').on('input', function () {
         var usuario = $(this).val();
         var icone = $('#modal-a2 .ui.form .icon');
@@ -30,7 +30,7 @@ $(document).ready(function () {
                 usuario: usuario
             },
             success: function (response) {
-                // console.log(response);
+                console.log(response);
                 if (response == 1) {
                     loading.removeClass('loading');
                     icone.removeClass('red').removeClass('times');
@@ -87,27 +87,31 @@ $(document).ready(function () {
                 usuario: usuario
             },
             success: function (response) {
-                // console.log(response);
                 if (response == 1) {
                     loading.removeClass('loading');
                     icone.removeClass('red').removeClass('times');
                     icone.addClass('green').addClass('check');
                     btnOK.removeClass('disabled');
+                    btnOK.click(function () {
+                        var nomeUsuario = $("#nome-usuario-b2").val();
+                        $.ajax({
+                            url: '/login',
+                            method: 'POST',
+                            data: {
+                                nome: nomeUsuario
+                            }
+                        })
+                        $('#ipt-nomeUsuario-b1').val(nomeUsuario);
+                        $('#form-modal-b1').submit();
+                    });
                 } else {
                     loading.removeClass('loading');
                     icone.removeClass('green').removeClass('check');
-                    // icone.addClass('red').addClass('times');
                 }
             },
             error: function (xhr, status, error) {
                 console.log('Ocorreu um erro:', error);
             }
-        });
-        btnOK.click(function () {
-            var nomeUsuario = $("#nome-usuario-b2").val();
-            $('#ipt-nomeUsuario-b1').val(nomeUsuario);
-            // console.log(nomeUsuario);
-            $('#form-modal-b1').submit();
         });
     });
 });

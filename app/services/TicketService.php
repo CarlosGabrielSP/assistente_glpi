@@ -1,10 +1,9 @@
 <?php
 namespace Cosanpa\App\services;
 
-use Cosanpa\App\services\UserService;
-use Cosanpa\Infra\TicketsRepository;
+use Cosanpa\Infra\repositorys\TicketsRepository;
 
-class TicketService
+class TicketService 
 {
     private $repositorio;
 

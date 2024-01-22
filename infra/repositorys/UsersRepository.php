@@ -1,5 +1,5 @@
 <?php
-namespace Cosanpa\Infra;
+namespace Cosanpa\Infra\repositorys;
 
 use Cosanpa\App\models\User;
 use Cosanpa\Src\Repository;
@@ -42,15 +42,6 @@ class UsersRepository extends Repository
     }
 
     // Funções Email ========================================================================
-    // public function userXEmail(User $user)
-    // {
-    //     $userId = $user->id;
-    //     $qry = "SELECT * FROM glpi_useremails WHERE users_id = :id ";
-    //     $stm = $this->PDOconexao->prepare($qry);
-    //     $stm->bindParam(':id', $userId);
-    //     $stm->execute();
-    //     return $stm->fetch(\PDO::FETCH_OBJ);
-    // }
 
     public function saveDefaultEmail(User $user, String $email): bool
     {
@@ -70,7 +61,7 @@ class UsersRepository extends Repository
         return $stm->execute();
     }
     // Phone ==================================================================================
-    public function updatePhoneUsuario(User $user, String $phone): bool
+    public function updatePhoneUser(User $user, String $phone): bool
     {
         $id = $user->id;
         $qry = "UPDATE {$this->tabela} SET phone = :phone WHERE id = :id";

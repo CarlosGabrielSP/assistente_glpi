@@ -199,7 +199,7 @@
         </div>
     </div>
 </div>
-<!-- MODAL A1 ============================================================================================================================================== -->
+<!-- MODAL A1 ================================================================================== -->
 <div id="modal-a1" class="ui first coupled modal piled segment">
     <i class="close icon"></i>
     <br>
@@ -286,7 +286,7 @@
         </div>
     </div>
 </div>
-<!-- MODAL B1 ============================================================================================================================================== -->
+<!-- MODAL B1 ============================================================================= -->
 <div id="modal-b1" class="ui small first coupled modal piled segment">
     <i class="close icon"></i>
     <div class="header">
@@ -375,8 +375,8 @@
     <script src="/js/index.js"></script>
     <script>
         $(document).ready(function() {
-            var sessao = '{{ session.user ? true : false }} ';
-
+            var sessao = {% if session.user %} true {% else %} false {% endif %};
+            console.log('sessão '+sessao);
             $('#submit-formModal-a1').click(function() {
                 var emailA1 = $('#iptEmailA1').val();
                 if (emailA1) {
@@ -397,7 +397,6 @@
                 var emailB1 = $('#iptEmailB1').val();
                 if (emailB1) {
                     if (sessao) {
-                        console.log('Chamado Criado');
                         $('#form-modal-b1').submit();
                     } else {
                         $('#modal-b2').modal({

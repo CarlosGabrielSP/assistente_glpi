@@ -2,7 +2,8 @@
 namespace Cosanpa\App\services;
 
 use Cosanpa\App\models\User;
-use Cosanpa\Infra\UsersRepository;
+use Cosanpa\Infra\repositorys\UsersRepository;
+use Cosanpa\Src\Util;
 
 class UserService
 {
@@ -10,7 +11,7 @@ class UserService
 
     function __construct()
     {
-        $this->repositorio = new UsersRepository;
+        $this->repositorio = new UsersRepository();
     }
 
     public function login(String $login): bool
@@ -34,6 +35,7 @@ class UserService
     public function logoff(): void
     {
         unset($_SESSION['user']);
+        Util::redireciona();
     }
 
     public function buscaUsuario(String $nome): mixed
@@ -43,7 +45,7 @@ class UserService
 
     public function verificaPhoneUsuario(User $user, String $phone): bool
     {
-        if($this->repositorio->updatePhoneUsuario($user, $phone)){
+        if($this->repositorio->updatePhoneUser($user, $phone)){
             $_SESSION['user']['phone'] = $phone;
             return true;
         }

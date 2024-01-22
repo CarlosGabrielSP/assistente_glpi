@@ -4,20 +4,21 @@ namespace Cosanpa\Src;
 class Util
 {
     // O Envio das variáveis deve ser via GET
-    public static function redireciona(String $url = "/", array $dados = []) 
+    public static function redireciona(String $url = "/", array $parametros = []) : array
     {
-        if($dados){
+        if($parametros){
             $i = 1;
             $url .= "?";
-            foreach($dados as $key => $value){
+            foreach($parametros as $key => $value){
                 $url .= $key . "=" . $value;
-                if($i == count($dados)) break;
+                if($i == count($parametros)) break;
                 $url .= "&";
                 $i++;
             }
         }
-        header('Location: ' . $url);
-        exit();
+        $dataResponse['status'] = 302;
+        $dataResponse['header'] = ['Location' => $url];
+        return $dataResponse;
     }
 
     public static function notificacao(String $status = "info", String $msg = '')

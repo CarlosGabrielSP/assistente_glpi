@@ -1,5 +1,5 @@
 <?php
-namespace Cosanpa\Infra;
+namespace Cosanpa\Infra\repositorys;
 
 use Cosanpa\Src\Repository;
 
