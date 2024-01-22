@@ -2,17 +2,22 @@
 namespace Cosanpa\App\controllers;
 
 use Cosanpa\Src\Controller;
+use Nyholm\Psr7\Response;
+use Psr\Http\Message\ResponseInterface;
 
 class AppController extends Controller
 {
-    public function index(): void
+    public function index()
     {
-        $this->renderView(view:"index");
+        echo (new Response(
+                status:200,
+                body:$this->renderView(view:"index")))
+            ->getBody();
     }
 
-    public function erro404(): void
+    public function erro404(): ResponseInterface
     {
-        $this->renderView(view:"404");
+        return new Response(status:404, body:$this->renderView(view:"404"));
     }
 
     public function manual(): void

@@ -28,6 +28,6 @@ class Router
         $infoRota = $this->getInfoRota($rota_acessada, $method);
         $controller = new $infoRota['controller'];
         $action = $infoRota['action'];
-        $controller->$action();
+        $response = $controller->$action();
     }
 }
