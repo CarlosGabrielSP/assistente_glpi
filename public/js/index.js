@@ -30,27 +30,31 @@ $(document).ready(function () {
                 usuario: usuario
             },
             success: function (response) {
-                console.log(response);
                 if (response == 1) {
                     loading.removeClass('loading');
                     icone.removeClass('red').removeClass('times');
                     icone.addClass('green').addClass('check');
                     btnOK.removeClass('disabled');
+                    btnOK.click(function () {
+                        var nomeUsuario = $("#nome-usuario-a2").val();
+                        $.ajax({
+                            url: '/login',
+                            method: 'POST',
+                            data: {
+                                nome: nomeUsuario
+                            }
+                        })
+                        $('#ipt-nomeUsuario-a1').val(nomeUsuario);
+                        $('#form-modal-a1').submit();
+                    });
                 } else {
                     loading.removeClass('loading');
                     icone.removeClass('green').removeClass('check');
-                    // icone.addClass('red').addClass('times');
                 }
             },
             error: function (xhr, status, error) {
                 console.log('Ocorreu um erro:', error);
             }
-        });
-        btnOK.click(function () {
-            var nomeUsuario = $("#nome-usuario-a2").val();
-            $('#ipt-nomeUsuario-a1').val(nomeUsuario);
-            // console.log(nomeUsuario);
-            $('#form-modal-a1').submit();
         });
     });
 

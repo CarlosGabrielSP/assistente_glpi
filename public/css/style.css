@@ -1,12 +1,12 @@
 body {
     background-image: url('/img/background.jpg');
     background-size: cover;
-    position: relative;
-    overflow: hidden;
+    height: 100vh;
+    padding: 5%;
 }
 
 main {
-    padding: 5%;
+    height: 100%;
 }
 
 #notificacao {
@@ -20,54 +20,47 @@ input::placeholder {
     color: #333 !important;
 }
 
-.box-main-geral {
-    padding: 50px;
-    border-radius: 20px;
-    background: rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    opacity: 1;
-}
-
 .box-main-home {
+    height: 100%;
+    margin-top: 0px!important;
+    margin-bottom: 0px!important;
+    overflow-y: auto!important;
     border-radius: 20px;
-    height: 80vh;
     background: rgba(255, 255, 255, 0.4);
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
     opacity: 1;
-    overflow: hidden;
 }
 
 .box-login {
-    height: 100%;
-    padding: 20px;
-    float: left;
-    min-width: 20%;
     background-color: #263238;
-    position: relative;
 }
 
-#logo-cosanpa {
-    border: 2px solid white;
+.box-login .ui.one.column.grid {
+    height: 100%;
+    padding-bottom: 20px;
+}
+
+.box-head *{
+    margin-top: 10px;
+    color: white!important;
 }
 
 .logos {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-around!important;
 }
 
-#btn-chamados {
-    position: absolute;
-    right: 20px;
-    left: 20px;
-    bottom: 20px;
+.buttons-login{
+    margin: 1rem;
 }
 
 .box-dashboard {
-    height: 100%;
-    padding: 20px;
-    overflow: auto;
+    padding: 20px!important;
+}
+
+.box-dashboard h1 {
+    margin: 10px 0 30px !important;
 }
 
 p {
@@ -92,10 +85,12 @@ p {
     padding: 20px;
 }
 
-@media screen and (max-width: 768px) {
+@media (min-width: 768px) {
     .box-login {
-        height: 350px;
-        float: none;
-        border-radius: 10px 10px 0 0;
+        height: 100%;
+        border-radius: 20px 0 0 20px;
+    }
+    .box-login .ui.one.column.grid {
+        padding-bottom: 0;
     }
 }
