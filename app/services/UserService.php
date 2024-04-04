@@ -3,7 +3,7 @@ namespace Cosanpa\App\services;
 
 use Cosanpa\App\models\User;
 use Cosanpa\Infra\repositorys\UsersRepository;
-use Cosanpa\Src\Util;
+use Cosanpa\Src\Helper;
 
 class UserService
 {
@@ -35,7 +35,7 @@ class UserService
     public function logoff(): void
     {
         unset($_SESSION['user']);
-        Util::redireciona();
+        Helper::redireciona();
     }
 
     public function buscaUsuario(String $nome): mixed

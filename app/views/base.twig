@@ -26,7 +26,7 @@
 			<div id="notificacao" class="ui {{ notificacao.status }} floating message">
 				<i class="large exclamation circle icon"></i>
 				<i class="close icon"></i>
-				{{ notificacao.msg }}
+				{{ notificacao.msg|raw }}
 			</div>
 		{% endif %}
 

@@ -1,7 +1,7 @@
 <?php 
 namespace Cosanpa\Src;
 
-class Util
+class Helper
 {
     // O Envio das variáveis deve ser via GET
     public static function redireciona(String $url = "/", array $parametros = []) : array

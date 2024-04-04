@@ -37,7 +37,7 @@ class Router
         }
         if (isset($this->rotas[$uri][$method]['auth'])){
             if (!$_SESSION['user']['name'] ?? false){
-                Util::notificacao('error', 'Usuário não informado');
+                Helper::notificacao('error', 'Usuário não informado');
                 return $this->rotas['/404']['GET'];
             }
         }
